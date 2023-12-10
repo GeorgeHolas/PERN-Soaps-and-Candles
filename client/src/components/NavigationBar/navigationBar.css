@@ -1,0 +1,52 @@
+/* The navigation bar */
+.navbar {
+  background: rgba(255, 255, 255, 0.904);
+  border: 1px solid #0f0707;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+}
+
+/* Links inside the navbar */
+.nav-links {
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li {
+  font-size: 18px;
+}
+
+.navbar a {
+  color: #0f0707;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  font-weight: 600;
+  background-color: #cf6121;
+  color: white;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  opacity: 80%;
+}
+
+/* The navigation bar logo */
+.nav-logo {
+  background-color: #0f0707;
+  height: 50px;
+  width: 50px;
+  background: url('../../resources/fox2.jpeg') center/cover;
+}
