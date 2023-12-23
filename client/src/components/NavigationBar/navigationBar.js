@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import'./navigationBar.css';
+import styles from './navigationBar.module.css';
 
 function NavigationBar() {
   return (
-    <nav className="navbar">
-      <Link to="/" className="nav-logo"></Link>
+    <nav className={styles.navbar}>
+      <Link to="/" className={styles.logo}></Link>
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
+        <li><Link to="/Products">Products</Link></li>
       </ul>
     </nav>
   );

@@ -1,0 +1,65 @@
+// Products.js
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './products.module.css';
+
+const Product = ({ product }) => {
+  console.log('REACT_APP_IMAGE_PATH:', process.env.REACT_APP_IMAGE_PATH);
+  return (
+    <Link to={`/products/${product.Product_id}`} className={styles.productLink}>
+      <div className={styles.product}>
+        <div className={styles.imageContainer}>
+          <img
+            src={process.env.REACT_APP_IMAGE_PATH + `/${product.imageName}`}
+            alt={`Product: ${product.Name}`}
+            style={{ maxWidth: '400px' }}
+          />
+        </div>
+        <div className={styles.productDetails}>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          {/* Link to the product details page */}
+          <div className={styles.detailsLink}>
+            View Details
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const ProductList = ({ title, category }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch products from the API endpoint with category filter
+    fetch(`http://localhost:4000/products?category=${category}`)
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching products:', error));
+  }, [category]);
+
+  return (
+    <div>
+      <h2 className={styles.productTitle}>{title}</h2>
+      <div className={styles.productcontainer}>
+        {products.map(product => (
+          <Product key={product.Product_id} product={product} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Products = () => {
+  return (
+    <div className={`${styles.pageContainer} ${styles.products}`}>
+      <h1 className={styles.h1}>List of Products</h1>
+      <ProductList title="Soaps and Candles" category="all" />
+      {/* Add more ProductList components for different categories */}
+    </div>
+  );
+};
+
+export default Products;

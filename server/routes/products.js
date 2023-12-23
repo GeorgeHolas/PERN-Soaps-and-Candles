@@ -16,10 +16,17 @@ router.get('/', async (req, res) => {
 });
 
 // Get a product by id
-router.get('/:product_id', async (req, res) => {
+router.get('/:Product_id', async (req, res) => {
   try {
-    const { product_id } = req.params;
-    const result = await db.query('SELECT * FROM "Products" WHERE "Product_id" = $1', [product_id]);
+    const { Product_id } = req.params;
+
+    // Check if product_id is a valid integer
+    if (isNaN(Product_id)) {
+      return res.status(400).json({ error: 'Invalid product ID' });
+    }
+
+    const result = await db.query('SELECT * FROM "Products" WHERE "Product_id" = $1', [Product_id]);
+
     if (result.rows.length === 0) {
       res.status(404).json({ error: 'Product not found' });
     } else {
@@ -70,7 +77,7 @@ router.put('/:product_id', async (req, res) => {
 });
 
 // Delete a specific product
-router.delete('/:product_id', async (req, res) => {
+router.delete('/:Product_id', async (req, res) => {
   try {
     const { product_id } = req.params;
     const result = await db.query('DELETE FROM "Products" WHERE "Product_id" = $1 RETURNING *', [product_id]);

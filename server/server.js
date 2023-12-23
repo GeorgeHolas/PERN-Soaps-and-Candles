@@ -12,16 +12,18 @@ const registerRoutes = require('./routes/register');
 const userRoutes = require('./routes/users');
 const passport = require('./passport'); 
 const app = express();
+const cors = require('cors');
 const port = process.env.PORT || 4000;
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express session middleware
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  resave: true,
+  resave: false,
   saveUninitialized: true
 }));
 
@@ -52,6 +54,23 @@ const swaggerSpec = swaggerJsdoc(options);
 
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Google OAuth route to initiate the login
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// Callback route for handling the result of Google OAuth
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/home'); // Redirect to the home page or any desired route
+  }
+);
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+}));
 
 // Routes
 app.use('/customers', customerRoutes);

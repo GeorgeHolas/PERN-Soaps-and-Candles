@@ -2,7 +2,8 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../AuthContext';
-import './register.css'; 
+import styles from './register.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
@@ -11,11 +12,12 @@ const validationSchema = Yup.object().shape({
 
 function Registration() {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     // Call your registration endpoint here
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('http://localhost:4000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,6 +29,7 @@ function Registration() {
         // Registration successful, log in the user
         login(values);
         console.log('Registration successful!');
+        navigate('/login');
       } else {
         const errorData = await response.json();
         // Handle registration errors
@@ -38,24 +41,32 @@ function Registration() {
   };
 
   return (
-    <div>
-      <Formik
-        initialValues={{ username: '', password: '' }}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        <Form>
-          <label htmlFor="username">Username:</label>
-          <Field type="text" id="username" name="username" />
-          <ErrorMessage name="username" component="span" />
+<div className={styles['register-body']}>
+      <div className={styles['register-container']}>
+        <Formik
+          initialValues={{ username: '', password: '' }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form className={styles['register-form']}>
+            <label className={styles.label} htmlFor="username">
+              Username:
+            </label>
+            <Field type="text" id="username" name="username" className={styles.input} />
+            <ErrorMessage name="username" component="span" />
 
-          <label htmlFor="password">Password:</label>
-          <Field type="password" id="password" name="password" />
-          <ErrorMessage name="password" component="span" />
+            <label className={styles.label} htmlFor="password">
+              Password:
+            </label>
+            <Field type="password" id="password" name="password" className={styles.input} />
+            <ErrorMessage name="password" component="span" />
 
-          <button type="submit">Register</button>
-        </Form>
-      </Formik>
+            <button type="submit" className={styles.button}>
+              Register
+            </button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 }

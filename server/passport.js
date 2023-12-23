@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const { Pool } = require('pg');
 
@@ -34,6 +35,37 @@ passport.use(
       return done(error);
     }
   })
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL, 
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        // Check if the user already exists in your database
+        const userQuery = await pool.query('SELECT * FROM public."Customers" WHERE google_id = $1', [profile.id]);
+
+        if (userQuery.rows.length > 0) {
+          // User already exists, return the user
+          return done(null, userQuery.rows[0]);
+        }
+
+        // User does not exist, create a new user
+        const newUserQuery = await pool.query(
+          'INSERT INTO public."Customers" (google_id, username, email) VALUES ($1, $2, $3) RETURNING *',
+          [profile.id, profile.displayName, profile.emails[0].value]
+        );
+
+        return done(null, newUserQuery.rows[0]);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
 );
 
 passport.serializeUser((user, done) => {

@@ -1,0 +1,111 @@
+/* Products.module.css */
+
+.body {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.products {
+  background: rgb(255, 255, 254);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.productcontainer{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.imageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.product {
+  text-align: center; /* Added to center align product details */
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  flex: 1;
+}
+
+.product:hover {
+  transform: scale(1.05); /* Increase size on hover */
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); /* Add a glow effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add a smooth transition effect */
+}
+
+.product img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product h3 {
+  margin-bottom: 10px;
+}
+
+.productName {
+  color: #0b0c0c;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.productDetails {
+  font-size: 18px;
+}
+
+.productTitle {
+  color: #0b0c0c;
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.detailsLink {
+  display: block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.detailsLink:hover {
+  background-color: #cf6121;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.h1 {
+  font-size: 25px;
+  text-align: center;
+  margin-top: 130px; /* Add margin-top for separation from top */
+}

@@ -1,0 +1,94 @@
+/* home.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.homeBody {
+  background: url('../../resources/Login.jpeg') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.homeContainer {
+  position: relative;
+  top: 180px;
+  left: 42%;
+  width: 350px;
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+  border-radius: 15px 15px 0 0;
+  opacity: 0.8;
+  border: 0.5px solid rgb(201, 195, 195);
+}
+
+.historyContainer {
+  position: relative;
+  top: 260px;
+  left: 22%;
+  width: 1350px;
+}
+
+.history {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  border-radius: 15px 15px 0 0;
+  width: 80%; 
+  opacity: 0.88;
+  border: 0.5px solid rgb(201, 195, 195);
+}
+
+h1, h3, h4, h2 {
+  font-family: 'Montserrat', sans-serif;
+  opacity: 0.85;
+  margin: 0;
+}
+
+h1 {
+  font-size: 34px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 34px;
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #000000;
+  text-align: center;
+}
+
+h3 {
+  font-size: 44px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 600; 
+}
+
+p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .center-container {
+    flex-direction: column;
+  }
+
+  .homeContainer, .historyContainer {
+    width: 80%;
+  }
+}
