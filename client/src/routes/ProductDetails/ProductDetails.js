@@ -8,6 +8,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -27,6 +28,12 @@ const ProductDetails = () => {
 
     fetchProductDetails();
   }, [Product_id]);
+
+  const handleAddToCart = () => {
+    // Implement the logic to add the product to the cart
+    // For simplicity, I'll just set the state to simulate adding to the cart
+    setAddedToCart(true);
+  };
 
   // Loading state
   if (loading) {
@@ -49,7 +56,9 @@ const ProductDetails = () => {
       <h2>{product.Name}</h2>
       <p>{product.Description}</p>
       <p>Price: ${product.Price}</p>
-      <button>Add to Cart</button>
+      <button onClick={handleAddToCart} disabled={addedToCart}>
+      {addedToCart ? 'Added to Cart' : 'Add to Cart'}
+      </button>
     </div>
   );
 };
