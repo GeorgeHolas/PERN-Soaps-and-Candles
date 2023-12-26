@@ -1,7 +1,7 @@
-/* The navigation bar */
+/* navigationBar.module.css */
 
 .navbar {
-  background: #fffdfd;
+  background: #ffffff;
   border: 1px solid #0f0707;
   border-top: none;
   width: 100%;
@@ -9,27 +9,17 @@
   left:0;
   right:0;
   display: flex;
-  padding: 10px;  
+  padding: 5px;  
   position: fixed;
-  z-index: 1000;
+  z-index: 10;
 }
 
 /* Links inside the navbar */
 
-.nav-links {
-  list-style: none;
-  gap: 20px;
-}
-
-.nav-links li {
-  font-size: 18px;
-}
-
 .navbar a {
   color: #0f0707;
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 16px;
   display: flex;
   padding: 10px 20px;
   text-align: center;
@@ -41,22 +31,20 @@
   font-weight: 600;
   background-color: #cf6121;
   color: white;
-  padding: 12px 15px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s;
-  opacity: 80%;
 }
 
 /* The navigation bar logo */
 
 .logo {
-  background-color: #0f0707;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
   background: url('../../resources/fox2.jpeg') center/cover;
-  opacity: 0.8;
+  margin-top: 10px;
 }
 
 
