@@ -30,7 +30,6 @@ const ProductDetails = () => {
   }, [Product_id]);
 
   const handleAddToCart = () => {
-    // Implement the logic to add the product to the cart
     // For simplicity, I'll just set the state to simulate adding to the cart
     setAddedToCart(true);
   };
