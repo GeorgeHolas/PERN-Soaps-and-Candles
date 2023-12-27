@@ -15,9 +15,14 @@ function App() {
     setCartItems([...cartItems, item]);
   };
 
+  const removeFromCart = (productId) => {
+    const updatedCart = cartItems.filter((item) => item.Product_id !== productId);
+    setCartItems(updatedCart);
+  };
+
   return (
     <Router>  
-      <NavigationBar />  
+      <NavigationBar cartItems={cartItems} />  
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/login" element={<Login />} />
@@ -25,6 +30,7 @@ function App() {
         <Route path="/Products" element={<Products />} />
         <Route path="/Products/:Product_id" element={<ProductDetails onAddToCart={addToCart} cartItems={cartItems} />}/>
         <Route path="/checkout" element={<Cart cartItems={cartItems} />} />
+        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
       </Routes>
     </Router>
   );
