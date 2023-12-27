@@ -57,7 +57,9 @@ const Products = () => {
     <div className={`${styles.pageContainer} ${styles.products}`}>
       <h1 className={styles.h1}>List of Products</h1>
       <ProductList title="Soaps and Candles" category="all" />
-      {/* Add more ProductList components for different categories */}
+      <Link to="/checkout">
+        <button>Go to Checkout</button>
+      </Link>
     </div>
   );
 };
