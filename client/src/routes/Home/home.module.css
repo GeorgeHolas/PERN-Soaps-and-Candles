@@ -2,14 +2,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap');
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.homeBody {
-  background: url('../../resources/Login.jpeg') no-repeat;
+.homeBody,
+.body {
+  background: url('../../resources/Login.jpeg') no-repeat; 
   background-size: cover;
   background-position: center;
 }
@@ -78,6 +73,28 @@ h4 {
 p {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.ourHistory h1 {
+  text-align: center;
+  margin-top: 30px;
+  margin-left: -200px;
+  font-size: 42px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.imageContainer {
+  margin-top: 30px;
+  background: url('../../resources/SoapsCandles.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  width: 100%;
+  margin-left: -120px;
+  border: 1px solid rgb(255, 255, 255);
+
 }
 
 /* Media query for responsiveness */

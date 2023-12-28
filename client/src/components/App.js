@@ -11,12 +11,28 @@ import Cart from '../routes/Cart/cart';
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
+  const addToCart = (newItem) => {
+    const isItemInCart = cartItems.some((item) => item.Product_id === newItem.Product_id);
+
+    if (!isItemInCart) {
+      setCartItems((prevItems) => [...prevItems, newItem]);
+      alert('Product added to the cart!');
+    } else {
+      alert('Product is already in the cart!');
+    }
   };
 
   const removeFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.Product_id !== productId);
+    setCartItems(updatedCart);
+  };
+
+  const updateQuantity = (productId, newQuantity) => {
+    const updatedCart = cartItems.map((item) =>
+      item.Product_id === productId
+        ? { ...item, quantity: newQuantity, totalPrice: item.Price * newQuantity }
+        : item
+    );
     setCartItems(updatedCart);
   };
 
@@ -28,9 +44,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/Products" element={<Products />} />
-        <Route path="/Products/:Product_id" element={<ProductDetails onAddToCart={addToCart} cartItems={cartItems} />}/>
-        <Route path="/checkout" element={<Cart cartItems={cartItems} />} />
-        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
+        <Route path="/Products/:Product_id" element={<ProductDetails onAddToCart={addToCart} />}/>
+        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}/>
       </Routes>
     </Router>
   );

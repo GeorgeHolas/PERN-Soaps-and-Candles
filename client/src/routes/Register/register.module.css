@@ -13,6 +13,9 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  background: url('../../resources/Register.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .register-container {

@@ -1,0 +1,131 @@
+/* cart.module.css */
+
+body {
+  background: url('../../resources/ProductsPage.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.cartContainer {
+  background-color: #faf9f8;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px; /* Add padding for better visual */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 150px auto; /* Center the container */
+  width: 80%;
+}
+
+.cart {
+  margin: 0; /* Reset margin to ensure there is no default margin */
+  padding: 0; /* Reset padding to ensure there is no default padding */
+}
+
+.cartItem {
+  list-style: none;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.cart h2 {
+  padding: 10px; 
+  border-radius: 10px; 
+  color: #be5111;
+  font-weight: 600;
+}
+
+.productImg {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.productName {
+  margin-right: auto;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.quantityBtn {
+  background-color: transparent;
+  color: #cf6121;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity {
+  margin: 0 10px;
+}
+
+.priceContainer {
+  margin-right: 20px;
+}
+
+.productPrice {
+  margin-left: 5px;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 150px;
+}
+
+.removeBtn {
+  background-color: #cf6121;
+  color: rgb(5, 5, 5);
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 5px;
+  font-weight: 600;
+  border-radius: 5px;
+  min-width: 80px; 
+}
+
+.cartTotal {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-top: 10px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+.calculateTotal {
+  display: flex;
+  padding-left: 5px;
+  font-weight: 600;
+}
+
+.removeBtn:hover {
+  background-color: #cf6121;
+  color: white;
+}
+
+.quantityBtn:hover {
+  background-color: #cf6121;
+  color: white; 
+}

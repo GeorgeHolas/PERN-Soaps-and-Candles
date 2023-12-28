@@ -17,7 +17,7 @@ const ProductDetails = ({ onAddToCart }) => {
         }
 
         const response = await axios.get(`http://localhost:4000/products/${Product_id}`);
-        setProduct(response.data);
+        setProduct({ ...response.data, quantity: 1 });
       } catch (error) {
         setError(error.message);
       } finally {
@@ -29,28 +29,7 @@ const ProductDetails = ({ onAddToCart }) => {
   }, [Product_id]);
 
   const handleAddToCart = () => {
-    // Ensure onAddToCart is initialized as a function
-    onAddToCart = onAddToCart || (() => []);
-  
-    // Call the function to handle cart logic
-    addToCartHandler();
-  };
-  
-  const addToCartHandler = () => {
-    // Get the current cart items
-    const currentCart = onAddToCart();
-  
-    // Check if the product is already in the cart
-    const isProductInCart = currentCart && currentCart.some && currentCart.some((item) => item.Product_id === product.Product_id);
-  
-    if (!isProductInCart) {
-      // If not in cart, update the cart items
-      onAddToCart((prevCartItems) => [...prevCartItems, product]);
-      alert('Product added to the cart!');
-    } else {
-      // If already in cart, show a message
-      alert('Product is already in the cart!');
-    }
+    onAddToCart(product);
   };
 
   // Loading state
@@ -74,7 +53,7 @@ const ProductDetails = ({ onAddToCart }) => {
       <p>{product.Description}</p>
       <p>Price: ${product.Price}</p>
       <button onClick={handleAddToCart}>Add to Cart</button>
-      <Link to="/checkout">Go to Checkout</Link>
+      <Link to="/Products" className={styles.returnLink}>Return</Link>
     </div>
   );
 };

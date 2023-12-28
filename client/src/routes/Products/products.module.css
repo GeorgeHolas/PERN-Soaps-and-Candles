@@ -1,20 +1,20 @@
 /* Products.module.css */
 
-.body {
+body {
   background-color: #fff;
   margin: 0;
   padding: 0;
 }
 
 .products {
-  background: rgb(255, 255, 254);
-  background-size: cover;
-  background-position: center;
   display: flex;
   flex-wrap: nowrap;
+  background: url('../../resources/ProductsPage.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-.productcontainer{
+.productcontainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
@@ -81,8 +81,7 @@
 
 .detailsLink {
   display: block;
-  background-color: #007bff;
-  color: #fff;
+  color: rgb(10, 10, 10);
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -90,10 +89,14 @@
   cursor: pointer;
   margin-top: 15px;
   transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .detailsLink:hover {
-  background-color: #cf6121;
+  color: #be5111;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .pageContainer {
@@ -107,5 +110,19 @@
 .h1 {
   font-size: 25px;
   text-align: center;
-  margin-top: 130px; /* Add margin-top for separation from top */
+  margin-top: 130px; 
+}
+
+.returnLink {
+  display: inline-block;
+  color: #070101;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.returnLink:hover {
+  font-weight: 600;
+  color: #cf6121;
 }

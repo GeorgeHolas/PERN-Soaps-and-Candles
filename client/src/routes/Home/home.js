@@ -33,9 +33,14 @@ function Home() {
              <p>Thank you for being part of our journey. We invite you to immerse yourself in the world of LIŠKA Soaps & Candles.</p>
 
              <p>Crafted with Love, Inspired by Nature.</p>
+             </div>
+             <div className={styles.ourHistory}>
+          <h1>Our Producst are hand crafted</h1>
+            </div>
+          <div className={styles.imageContainer}>
             </div>
           </div>
-       </div>
+         </div>
       </>
     );
   };

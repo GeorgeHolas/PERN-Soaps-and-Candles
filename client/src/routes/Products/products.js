@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import styles from './products.module.css';
 
 const Product = ({ product }) => {
-  console.log('REACT_APP_IMAGE_PATH:', process.env.REACT_APP_IMAGE_PATH);
   return (
     <Link to={`/products/${product.Product_id}`} className={styles.productLink}>
       <div className={styles.product}>
@@ -57,9 +56,6 @@ const Products = () => {
     <div className={`${styles.pageContainer} ${styles.products}`}>
       <h1 className={styles.h1}>List of Products</h1>
       <ProductList title="Soaps and Candles" category="all" />
-      <Link to="/checkout">
-        <button>Go to Checkout</button>
-      </Link>
     </div>
   );
 };
