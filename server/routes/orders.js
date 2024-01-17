@@ -9,7 +9,9 @@ router.use(express.json());
 // Get all orders
 router.get('/', async (req, res) => {
   try {
+    console.log('Request received at /orders');
     const result = await db.query('SELECT * FROM "Orders"');
+    console.log('Query result:', result.rows);
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing query:', error);
@@ -42,7 +44,6 @@ router.post('/', async (req, res) => {
       [customer_id, product_id, quantity, total_price]
     );
 
-    // The result.rows[0] contains the newly created order
     res.json(result.rows[0]);
   } catch (error) {
     console.error('Error executing query:', error);

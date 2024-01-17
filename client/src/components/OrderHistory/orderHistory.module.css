@@ -1,0 +1,55 @@
+/* OrderHistory.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 150px 50px; 
+  }
+
+  .container h2 {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  
+  .order { 
+    border: 1px solid #000000;
+    border-style: hidden;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 120px;
+    width: 350px;
+  }
+  
+  .order p {
+    margin: 0;
+    font-weight: 400;
+    background-color: white;
+  }
+  
+  button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    border-style: none;
+    background-color: #c05b08;
+    color: #000000;
+    transition: background-color 0.3s ease;
+    padding: 8px;
+  }
+  
+  button:hover {
+    background-color: #c05b08;
+    color: white;
+  }
+
+  .returnButton {
+    font-weight: 600;
+  }
+
+  .order span {
+    font-weight: 500;
+  }

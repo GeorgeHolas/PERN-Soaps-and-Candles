@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Elements } from 'react-stripe-elements';
 import styles from './cart.module.css';
+import Checkout from '../../components/Checkout/checkout';
 
 const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
+  const [showCheckout, setShowCheckout] = useState(false);
+  const navigate = useNavigate();
+
   const handleRemove = (productId) => {
     removeFromCart(productId);
   };
@@ -16,6 +22,12 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
     return cartItems.reduce((total, item) => total + calculateItemTotal(item), 0);
   };
 
+  // Show the checkout
+  const handleCheckout = () => {
+    setShowCheckout(true);
+    navigate('/checkout');
+  };
+
   return (
     <div className={styles.cartContainer}>
       <div className={styles.cart}>
@@ -24,7 +36,11 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
           {cartItems.map((item, index) => (
             <div key={`${item.Product_id}-${index}`} className={styles.cartItem}>
               <div className={styles.productInfo}>
-                <img className={styles.productImg} src={process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`} alt={item.Name} />
+                <img
+                  className={styles.productImg}
+                  src={process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`}
+                  alt={item.Name}
+                />
                 <span className={styles.productName}>{item.Name}</span>
                 <span className={styles.productPrice}>${item.Price}</span>
               </div>
@@ -46,7 +62,8 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
               <button
                 className={styles.removeBtn}
                 onClick={() => handleRemove(item.Product_id)}
-              > Remove
+              >
+                Remove
               </button>
             </div>
           ))}
@@ -55,6 +72,14 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
           <span>Total</span>
           <span className={styles.calculateTotal}>${calculateCartTotal()}</span>
         </div>
+        {showCheckout && (
+          <Elements>
+            <Checkout cartItems={cartItems} setShowCheckout={setShowCheckout} />
+          </Elements>
+        )}
+        <button className={styles.checkoutBtn} onClick={handleCheckout}>
+          Checkout
+        </button>
       </div>
     </div>
   );

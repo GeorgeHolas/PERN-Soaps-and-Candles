@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import GoogleButton from '../../components/GoogleButton/GoogleButton';
 
-
 function Login() {
   const { login } = useAuth();
   const { register, handleSubmit, setError, formState: { errors } } = useForm();

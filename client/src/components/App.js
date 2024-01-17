@@ -1,15 +1,21 @@
+// App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from '../routes/Login/login';
-import Registration from '../routes/Register/register'; 
+import Registration from '../routes/Register/register';
 import Home from '../routes/Home/home';
 import NavigationBar from './NavigationBar/NavigationBar';
 import Products from '../routes/Products/products';
 import ProductDetails from '../routes/ProductDetails/ProductDetails';
 import Cart from '../routes/Cart/cart';
+import Checkout from '../components/Checkout/checkout';
+import PrivateRoute from './PrivateRoute/privateRoute';
+import OrderHistory from '../components/OrderHistory/orderHistory';
+import { AuthProvider, useAuth } from '../routes/AuthContext';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
+  const { isAuthenticated, logout } = useAuth();
 
   const addToCart = (newItem) => {
     const isItemInCart = cartItems.some((item) => item.Product_id === newItem.Product_id);
@@ -36,18 +42,43 @@ function App() {
     setCartItems(updatedCart);
   };
 
+  const handleLogout = () => {
+    console.log('Attempting to log out');
+    logout();
+    console.log('User logged out');
+  };
+
   return (
-    <Router>  
-      <NavigationBar cartItems={cartItems} />  
-      <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/Products" element={<Products />} />
-        <Route path="/Products/:Product_id" element={<ProductDetails onAddToCart={addToCart} />}/>
-        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}/>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          <Route
+            path="/products/*"
+            element={<PrivateRoute element={<Products addToCart={addToCart} />} />}
+          />
+          <Route
+            path="/products/:productId/*"
+            element={<PrivateRoute element={<ProductDetails onAddToCart={addToCart} />} />}
+          />
+          <Route
+            path="/cart"
+            element={<PrivateRoute element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />}
+          />
+          <Route
+            path="/checkout"
+            element={<PrivateRoute element={<Checkout cartItems={cartItems} />} />}
+          />
+          <Route
+            path="/orders"
+            element={<PrivateRoute element={<OrderHistory />} />}
+          />
+        </Routes>
+        <NavigationBar cartItems={cartItems} onLogout={handleLogout} isAuthenticated={isAuthenticated} />
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -10,8 +10,9 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 // Endpoint for user logout
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.json({ message: 'Logout successful' });
+  // Destroy session
+  req.session.destroy();
+  res.send('Logged out');
 });
 
 // Add a protected route to test if the user is authenticated

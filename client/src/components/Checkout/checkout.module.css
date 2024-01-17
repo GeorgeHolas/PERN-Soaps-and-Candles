@@ -1,38 +1,48 @@
-/* Checkout.module.css */
+/* checkout.module.css */
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+.checkoutContainer {
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto; 
+}
+
+.paymentDetails {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.paymentDetails h3 {
+  margin-bottom: 10px;
+}
+
+.CardElement {
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.paymentError {
+  color: red;
+  margin-top: 10px;
+}
+
+.checkoutContainer p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Adjust styling for larger screens */
+@media (min-width: 768px) {
+  .checkoutContainer {
+    margin-top: 200px; 
   }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h2 {
-    color: #333;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin: 10px 0;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  li img {
-    max-width: 100px;
-    margin-right: 10px;
-  }
+}

@@ -5,14 +5,16 @@
   border: 1px solid #0f0707;
   border-top: none;
   width: 100%;
-  top:0;
-  left:0;
-  right:0;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  padding: 5px;  
+  justify-content: space-between; 
+  align-items: center; 
   position: fixed;
   z-index: 10;
 }
+
 
 /* Links inside the navbar */
 
@@ -28,12 +30,12 @@
 /* Change background on mouse-over */
 
 .navbar a:hover {
-  font-weight: 600;
+  font-weight: 500;
   background-color: #cf6121;
   color: white;
-  padding: 10px 20px;
+  padding: auto;
   border: none;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -41,21 +43,21 @@
 /* The navigation bar logo */
 
 .logo {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   background: url('../../resources/fox2.jpeg') center/cover;
-  margin-top: 10px;
 }
 
 
 ul {
   list-style-type: none;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 }
 
 li {
-  margin: 0;
+  margin: 0 10px; 
 }
 
 a {
@@ -63,3 +65,36 @@ a {
   color: #070101;
 }
 
+.logoutMessageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start of the flex container */
+  }
+
+  ul {
+    width: 80%; /* Make the list take full width */
+    justify-content: flex-start; /* Align items to the start on smaller screens */
+    margin-top: 10px; /* Add some space between logo and items */
+  }
+
+  li {
+    margin: 5px 0; /* Adjust margin for stacked items */
+  }
+
+  .logoutButton {
+    margin-left: 0; /* Reset margin to the default for the logout button */
+  }
+}

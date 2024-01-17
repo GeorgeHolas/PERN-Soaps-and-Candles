@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './ProductDetails.module.css';
 
 const ProductDetails = ({ onAddToCart }) => {
-  const { Product_id } = useParams();
+  const { productId } = useParams();  // Change this line
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,11 +12,11 @@ const ProductDetails = ({ onAddToCart }) => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        if (!Product_id) {
+        if (!productId) {
           throw new Error('Product ID is missing');
         }
 
-        const response = await axios.get(`http://localhost:4000/products/${Product_id}`);
+        const response = await axios.get(`http://localhost:4000/products/${productId}`);
         setProduct({ ...response.data, quantity: 1 });
       } catch (error) {
         setError(error.message);
@@ -26,7 +26,7 @@ const ProductDetails = ({ onAddToCart }) => {
     };
 
     fetchProductDetails();
-  }, [Product_id]);
+  }, [productId]);
 
   const handleAddToCart = () => {
     onAddToCart(product);
