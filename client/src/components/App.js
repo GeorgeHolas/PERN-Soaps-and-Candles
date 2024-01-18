@@ -44,7 +44,7 @@ function App() {
 
   const handleLogout = () => {
     logout();
-    setCartItems([null]);
+    setCartItems([]);
   };
 
   return (
