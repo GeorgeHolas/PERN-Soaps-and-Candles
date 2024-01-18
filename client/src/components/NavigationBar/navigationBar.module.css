@@ -54,10 +54,11 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1; /* Allow the items to grow and take available space */
 }
 
 li {
-  margin: 0 10px; 
+  margin: 0 10px;
 }
 
 a {
@@ -65,19 +66,27 @@ a {
   color: #070101;
 }
 
-button {
-  margin: 0 10px; 
+.buttonLogout {
+  font-family: 'Poppins', sans-serif;
+  border-style: transparent;
+  background-color: white;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+.buttonLogout:hover {
+  background-color: #cf6121;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column; /* Stack items vertically on smaller screens */
-    align-items: flex-start; /* Align items to the start of the flex container */
+    align-items: center; /* Center items on smaller screens */
   }
 
   ul {
-    width: 80%; /* Make the list take full width */
+    width: 100%; /* Make the list take full width */
     justify-content: flex-start; /* Align items to the start on smaller screens */
     margin-top: 10px; /* Add some space between logo and items */
   }
@@ -86,7 +95,7 @@ button {
     margin: 5px 0; /* Adjust margin for stacked items */
   }
 
-  .logoutButton {
-    margin-left: 0; /* Reset margin to the default for the logout button */
+  .buttonLogout {
+    margin-left: auto; /* Move the logout button to the right on smaller screens */
   }
 }

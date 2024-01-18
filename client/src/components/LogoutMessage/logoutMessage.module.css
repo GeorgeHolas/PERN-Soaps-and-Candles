@@ -14,9 +14,12 @@
   
   .logoutMessage {
     color: white;
-    background-color: #333;
+    background-color: #363330;
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    border: transparent;
   }
   

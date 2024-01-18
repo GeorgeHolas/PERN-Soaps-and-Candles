@@ -1,12 +1,12 @@
 // OrderHistory.js
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';  
 import styles from './orderHistory.module.css';
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
-  const navigate = useNavigate();  // Get the navigate function from react-router-dom
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -39,7 +39,7 @@ const OrderHistory = () => {
           <p><span>Order ID: </span> {order.Order_id}</p>
           <p><span>Total: </span> {order.Total}</p>
           <p><span>Day of purchase: </span> {order.Created}</p>
-          <p><span>status: </span> {order.Status}</p>
+          <p><span>Status: </span> {order.Status}</p>
         </div>
       ))}
       <button onClick={handleReturnHome} className={styles.returnButton}>

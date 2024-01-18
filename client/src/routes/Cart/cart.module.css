@@ -1,13 +1,13 @@
 /* cart.module.css */
 
-body {
+.homeBody {
   background: url('../../resources/ProductsPage.jpg') no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .cartContainer {
-  background-color: #faf9f8;
+  background-color: #faf9f8ad;
   border: 1px solid black;
   border-radius: 10px;
   padding: 20px; 
@@ -15,7 +15,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 150px auto; 
-  width: 80%;
+  width: 50%;
 }
 
 .cart {
@@ -37,7 +37,7 @@ body {
 .cart h2 {
   padding: 10px; 
   border-radius: 10px; 
-  color: #be5111;
+  color: black;
   font-weight: 600;
 }
 
@@ -91,7 +91,7 @@ body {
 }
 
 .removeBtn {
-  background-color: #cf6121;
+  background-color: #cf6121e0;
   color: rgb(5, 5, 5);
   padding: 5px 10px;
   border: none;
@@ -137,7 +137,7 @@ body {
 }
 
 .checkoutBtn {
-  background-color: #cf6121;
+  background-color: #cf6121da;
   border-radius: 5px;
   padding: 10px;
   margin-top: 20px;

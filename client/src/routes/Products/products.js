@@ -40,7 +40,7 @@ const ProductList = ({ title, category }) => {
   }, [category]);
 
   return (
-    <div>
+    <div className={styles.productsBody}>
       <h2 className={styles.productTitle}>{title}</h2>
       <div className={styles.productcontainer}>
         {products.map(product => (

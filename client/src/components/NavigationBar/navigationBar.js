@@ -6,7 +6,7 @@ import LogoutMessage from '../LogoutMessage/logoutMessage';
 import { useAuth } from '../../routes/AuthContext';
 
 function NavigationBar({ cartItems }) {
-  const { logout, logoutMessage, clearLogoutMessage } = useAuth();
+  const { user, logout, logoutMessage, clearLogoutMessage } = useAuth();
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
   useEffect(() => {
@@ -31,15 +31,19 @@ function NavigationBar({ cartItems }) {
     <React.Fragment>
       <nav className={styles.navbar}>
         <Link to="/" className={styles.logo}></Link>
-        <ul>
+        <ul className={styles.navList}>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/register">Sign up</Link></li>
           <li><Link to="/products">Products</Link></li>
           <li><Link to="/orders">Orders</Link></li>
-          <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
+          {user && (
+            <React.Fragment>
+              <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
+              <button className={styles.buttonLogout} onClick={handleLogout}>Logout</button>
+            </React.Fragment>
+          )}
         </ul>
-        <button onClick={handleLogout}>Logout</button>
       </nav>
 
       {showLogoutMessage && (

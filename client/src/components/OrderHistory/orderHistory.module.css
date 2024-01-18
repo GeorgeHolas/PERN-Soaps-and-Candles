@@ -24,7 +24,7 @@
   }
   
   .order p {
-    margin: 0;
+    margin: 8px;
     font-weight: 400;
     background-color: white;
   }
@@ -51,5 +51,5 @@
   }
 
   .order span {
-    font-weight: 500;
+    font-weight: 600;
   }

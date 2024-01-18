@@ -43,9 +43,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    console.log('Attempting to log out');
     logout();
-    console.log('User logged out');
+    setCartItems([null]);
   };
 
   return (

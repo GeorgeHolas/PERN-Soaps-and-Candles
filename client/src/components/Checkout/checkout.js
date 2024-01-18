@@ -75,18 +75,18 @@ const CheckoutForm = ({ cartItems }) => {
 
   return (
     <div className={styles.checkoutContainer}>
-      <h2>Checkout</h2>
+      <h3>Checkout</h3>
       <hr />
       <ul>
         <h1>Subtotal : ${totalAmount + 5}</h1>
-        <p>with shipping costs</p>
+        <p>includes shipping costs</p>
       </ul>
       <div className={styles.paymentDetails}>
         <hr />
         <h2>Payment Details</h2>
         <form onSubmit={handlePayment}>
           <CardElement onChange={handleCardElementChange} />
-          <button type="submit" disabled={processingPayment}>
+          <button class={styles.buttonPay} type="submit" disabled={processingPayment}>
             {processingPayment ? 'Processing...' : 'Pay Now'}
           </button>
         </form>
