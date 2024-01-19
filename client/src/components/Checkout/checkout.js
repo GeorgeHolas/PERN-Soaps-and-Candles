@@ -33,24 +33,25 @@ const CheckoutForm = ({ cartItems }) => {
       if (error) {
         setPaymentError(error.message);
       } else {
-        const response = await fetch('http://localhost:4000/payments/intents', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            amount: calculateTotalAmount(cartItems),
-            token: token.id,
-          }),
-        });
-  
+        const response = await fetch('http://localhost:4000/orders', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    customerId: token?.card?.customer,
+    total: calculateTotalAmount(cartItems),
+    status: 'Complete',
+    created: new Date().toISOString(),
+  }),
+});
+const placeOrder = async () => {
+}
         if (response.ok) {
+          await placeOrder(); // Call this first
           setPaymentError(null); // Clear any previous payment errors
           console.log('Payment successful');
-  
-          // Display a success message (you can replace this with your own UI logic)
-          alert('Payment successful');
-  
+          
           // Delay the redirection to the home page
           setTimeout(() => {
             window.location.href = 'http://localhost:3000/'; 
@@ -65,7 +66,7 @@ const CheckoutForm = ({ cartItems }) => {
     } finally {
       setProcessingPayment(false);
     }
-  };;
+  };
 
   const calculateTotalAmount = (items) => {
     return items.reduce((total, item) => total + (item.Price || 0) * (item.quantity || 1), 0);

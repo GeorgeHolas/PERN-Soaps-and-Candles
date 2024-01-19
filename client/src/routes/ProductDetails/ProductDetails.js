@@ -4,10 +4,11 @@ import axios from 'axios';
 import styles from './ProductDetails.module.css';
 
 const ProductDetails = ({ onAddToCart }) => {
-  const { productId } = useParams();  // Change this line
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [addToCartMessage, setAddToCartMessage] = useState(null);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -30,6 +31,7 @@ const ProductDetails = ({ onAddToCart }) => {
 
   const handleAddToCart = () => {
     onAddToCart(product);
+    setAddToCartMessage('Item added to the cart!');
   };
 
   // Loading state
@@ -53,7 +55,8 @@ const ProductDetails = ({ onAddToCart }) => {
       <p>{product.Description}</p>
       <p>Price: ${product.Price}</p>
       <button onClick={handleAddToCart}>Add to Cart</button>
-      <Link to="/Products" className={styles.returnLink}>Return</Link>
+      {addToCartMessage && <p>{addToCartMessage}</p>}
+      <Link to="/Products" className={styles.returnLink}></Link>
     </div>
   );
 };

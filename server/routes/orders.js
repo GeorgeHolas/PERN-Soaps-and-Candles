@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
+const { v4: uuidv4 } = require('uuid');
 
 router.use(express.json());
 
@@ -37,16 +38,18 @@ router.get('/:order_id', async (req, res) => {
 
 // Create a new order
 router.post('/', async (req, res) => {
+  const orderId = uuidv4();
+  const { customerId, total, status } = req.body;
+  
   try {
-    const { customer_id, product_id, quantity, total_price } = req.body;
     const result = await db.query(
-      'INSERT INTO "Orders" ("Customer_id", "Product_id", "Quantity", "Total_price") VALUES ($1, $2, $3, $4) RETURNING *',
-      [customer_id, product_id, quantity, total_price]
+      'INSERT INTO "Orders" ("Customer_id", "Order_id", "Total", "Status", "Created") VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP) RETURNING *',
+      [customerId, orderId, total, status]
     );
 
-    res.json(result.rows[0]);
-  } catch (error) {
-    console.error('Error executing query:', error);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Error creating order:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -57,7 +60,7 @@ router.put('/:order_id', async (req, res) => {
     const { order_id } = req.params;
     const { quantity, total_price } = req.body;
     const result = await db.query(
-      'UPDATE "Orders" SET "Quantity" = $1, "Total_price" = $2 WHERE "Order_id" = $3 RETURNING *',
+      'UPDATE "Orders" SET "Quantity" = $1, "Total" = $2 WHERE "Order_id" = $3 RETURNING *',
       [quantity, total_price, order_id]
     );
 

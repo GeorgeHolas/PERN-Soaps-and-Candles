@@ -4,6 +4,7 @@ const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
 const router = express.Router();
+
 const pool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,

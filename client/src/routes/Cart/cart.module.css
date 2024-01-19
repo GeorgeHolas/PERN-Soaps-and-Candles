@@ -1,11 +1,5 @@
 /* cart.module.css */
 
-.homeBody {
-  background: url('../../resources/ProductsPage.jpg') no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
 .cartContainer {
   background-color: #faf9f8ad;
   border: 1px solid black;
@@ -39,6 +33,8 @@
   border-radius: 10px; 
   color: black;
   font-weight: 600;
+  font-family: 'Rubik Doodle Shadow', system-ui;
+  text-align: center;
 }
 
 .productImg {
@@ -60,7 +56,6 @@
 .quantityContainer {
   display: flex;
   align-items: center;
-  margin-left: 10px;
 }
 
 .quantityBtn {
@@ -69,25 +64,15 @@
   padding: 5px;
   border: none;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .quantity {
   margin: 0 10px;
 }
 
-.priceContainer {
-  margin-right: 20px;
-}
-
 .productPrice {
   margin-left: 5px;
-}
-
-.buttonsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-top: 150px;
 }
 
 .removeBtn {
@@ -96,11 +81,11 @@
   padding: 5px 10px;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
-  margin-right: 5px;
+  text-align: center;
   font-weight: 600;
   border-radius: 5px;
   min-width: 80px; 
+  margin-left: 10px;
 }
 
 .cartTotal {
@@ -109,10 +94,6 @@
   text-align: center;
   justify-content: center;
   font-size: 22px;
-  margin-top: 20px; 
-  margin-left: auto; 
-  margin-right: auto; 
-  margin-bottom: 20px
 }
 
 .calculateTotal {
@@ -140,9 +121,10 @@
   background-color: #cf6121da;
   border-radius: 5px;
   padding: 10px;
-  margin-top: 20px;
-  margin-left: 130px;
   font-size: medium;
   font-weight: 600;
-  width: 150px;
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+  margin: 10px auto;
 }

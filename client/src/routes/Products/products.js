@@ -18,7 +18,6 @@ const Product = ({ product }) => {
         <div className={styles.productDetails}>
           <h3>{product.name}</h3>
           <p>{product.description}</p>
-          {/* Link to the product details page */}
           <div className={styles.detailsLink}>
             View Details
           </div>
@@ -55,7 +54,7 @@ const Products = () => {
   return (
     <div className={`${styles.pageContainer} ${styles.products}`}>
       <h1 className={styles.h1}>List of Products</h1>
-      <ProductList title="Soaps and Candles" category="all" />
+      <ProductList category="all" />
     </div>
   );
 };

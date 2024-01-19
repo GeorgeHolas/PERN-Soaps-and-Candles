@@ -10,16 +10,18 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
   }
   
   .logoutMessage {
-    color: white;
-    background-color: #363330;
+    font-family: 'Rubik Doodle Shadow', system-ui; 
+    color: rgb(248, 246, 246);
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
     border: transparent;
+    letter-spacing: 2px;
   }
   

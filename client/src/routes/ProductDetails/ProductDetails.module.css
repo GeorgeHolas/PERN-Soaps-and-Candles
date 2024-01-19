@@ -1,29 +1,27 @@
 /* ProductDetails.module.css */
 
 .productDetails {
-    max-width: 600px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: auto; 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 200px auto; 
     display: flex;
     flex-direction: column;
     align-items: center;  
     background-color: white;  
+    width: 30%;
   }
   
   .productDetails h2 {
     color: #070707;
     font-size: 24px;
+    font-family: 'Rubik Doodle Shadow', system-ui;
   }
   
   .productDetails p {
     color: #080808;
+    font-weight: 600;
   }
   
   .productDetails img {
@@ -35,22 +33,25 @@
   
   .productDetails p.price {
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   .productDetails button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #be5111;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 15px;
-    display: flex;
-     
+    display: flex;   
   }
   
   .productDetails button:hover {
-    background-color: #d1740a;
+    background-color: #be5111;
+  }
+
+  .returnLink:hover {
+    color:#be5111;
+    font-weight: 600;
   }
   
