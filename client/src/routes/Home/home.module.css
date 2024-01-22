@@ -41,7 +41,7 @@
 .ourHistory {
   text-align: center;
   margin-top: 15px;
-  background-color: rgb(150, 146, 146);
+  background-color: transparent;
   background-size: cover;
   background-position: center;
   padding-bottom: 80px;
@@ -59,8 +59,8 @@
   font-style: italic;
   background-color: #ffffff;
   width: 30%;
-  margin: 80px 650px 0; 
-  padding: 10px;
+  margin: 8% auto 0; 
+  padding: 2%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   box-shadow: 5px -5px 5px  rgba(12, 12, 12, 0.719);
@@ -68,7 +68,7 @@
 
 .history h1 {
   font-family: 'Rubik Doodle Shadow', system-ui;
-  font-size: 34px;
+  font-size: 2.125em;
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -101,8 +101,8 @@
   justify-content: space-between;
   height: 400px; 
   background-color: #ffffff;
-  margin: 0 200px;
-  padding: 20px;
+  margin: 0 10%;
+  padding: 1%;
   border-radius: 15px;
   box-shadow: 5px 5px 5px rgba(48, 47, 47, 0.719);
 }
