@@ -1,14 +1,30 @@
 /* OrderHistory.module.css */
 
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.orderContainer {
+  position: flex;
+  margin: 3rem auto;
+  width: 35rem;
+  background-color: #faf9f8ad;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px; 
+  backdrop-filter: blur(5px);
+}
+
  .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 150px 50px; 
   }
 
   .container h2 {
-    font-family: 'Rubik Doodle Shadow', system-ui;
+    font-family: 'Acme', sans-serif;
     font-size: 32px;
     font-weight: 600;
   }
@@ -18,7 +34,7 @@
     border-style: hidden;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.582);
     border-radius: 10px;
     height: 120px;
     width: 460px;
@@ -27,7 +43,6 @@
   .order p {
     margin: 8px;
     font-weight: 400;
-    background-color: white;
   }
   
   button {

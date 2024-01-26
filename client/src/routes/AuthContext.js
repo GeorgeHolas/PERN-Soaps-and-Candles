@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const [stripeKey, setStripeKey] = useState(null);
 
   useEffect(() => {
-    // Fetch the publishable key from the environment variables
     const publishableKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
 
     setStripeKey(publishableKey);

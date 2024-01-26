@@ -1,8 +1,10 @@
+// ProductDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ProductDetails.module.css';
 
+// Add products to a cart
 const ProductDetails = ({ onAddToCart }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -50,14 +52,27 @@ const ProductDetails = ({ onAddToCart }) => {
   }
 
   return (
-    <div className={styles.productDetails}>
-      <h2>{product.Name}</h2>
-      <p>{product.Description}</p>
-      <p>Price: ${product.Price}</p>
-      <button onClick={handleAddToCart}>Add to Cart</button>
-      {addToCartMessage && <p>{addToCartMessage}</p>}
-      <Link to="/Products" className={styles.returnLink}></Link>
-    </div>
+    <><div className={styles.mainContainer}>
+        <img className={styles.productImage}
+          src={process.env.REACT_APP_IMAGE_PATH + `/${product.imageName}`}
+          alt={`Product: ${product.Name}`} />
+      <div className={styles.productDetailsContainer}>
+        <div className={styles.productDetails}>
+          <h2>{product.Name}</h2>
+          <p>{product.Description}</p>
+        </div>
+        </div>
+        </div>
+        <div className={styles.priceContainer}>
+          <p className={styles.price}>Price: ${product.Price}</p>
+          <button onClick={handleAddToCart}>Add to Cart</button>
+          {addToCartMessage && <p>{addToCartMessage}</p>}
+          <Link to="/Products" className={styles.returnLink}>
+            <p>Return to Products</p>
+          </Link>
+        </div>
+      </>
+    
   );
 };
 

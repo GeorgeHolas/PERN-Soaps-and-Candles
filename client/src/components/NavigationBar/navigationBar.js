@@ -5,6 +5,7 @@ import styles from './navigationBar.module.css';
 import LogoutMessage from '../LogoutMessage/logoutMessage';
 import { useAuth } from '../../routes/AuthContext';
 
+// Logout message function and clear up of cart
 function NavigationBar({ cartItems }) {
   const { user, logout, logoutMessage, clearLogoutMessage } = useAuth();
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
@@ -17,7 +18,7 @@ function NavigationBar({ cartItems }) {
       const timeoutId = setTimeout(() => {
         setShowLogoutMessage(false);
         clearLogoutMessage();
-      }, 5000); // Display the message for 5 seconds
+      }, 3000); 
 
       return () => clearTimeout(timeoutId);
     }
@@ -28,9 +29,10 @@ function NavigationBar({ cartItems }) {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <nav className={styles.navbar}>
         <Link to="/" className={styles.logo}></Link>
+        <h1 className={styles.header}>LIŠKA Soaps & Candles</h1>
         <ul className={styles.navList}>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/login">Login</Link></li>
@@ -38,10 +40,7 @@ function NavigationBar({ cartItems }) {
           <li><Link to="/products">Products</Link></li>
           <li><Link to="/orders">Orders</Link></li>
           {user && (
-            <React.Fragment>
-              <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
-              <button className={styles.buttonLogout} onClick={handleLogout}>Logout</button>
-            </React.Fragment>
+              <><li><Link to="/cart">Cart ({cartItems.length})</Link></li><button className={styles.buttonLogout} onClick={handleLogout}>Logout</button></>
           )}
         </ul>
       </nav>
@@ -49,7 +48,7 @@ function NavigationBar({ cartItems }) {
       {showLogoutMessage && (
         <LogoutMessage message={logoutMessage} />
       )}
-    </React.Fragment>
+    </div>
   );
 }
 

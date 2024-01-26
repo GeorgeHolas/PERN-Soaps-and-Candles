@@ -32,6 +32,7 @@ const OrderHistory = () => {
   };
 
   return (
+    <div className={styles.orderContainer}> 
     <div className={styles.container}>
       <h2>Order History</h2>
       {orderHistory.map(order => (
@@ -46,6 +47,7 @@ const OrderHistory = () => {
         Return to Home
       </button>
     </div>
+   </div>
   );
 };
 

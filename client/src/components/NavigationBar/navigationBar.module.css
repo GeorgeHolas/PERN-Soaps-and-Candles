@@ -1,20 +1,17 @@
 /* navigationBar.module.css */
 
 .navbar {
-  background: #ffffff;
-  border: 1px solid #0f0707;
-  border-top: none;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
+  background: white;
+  border-bottom: 1px solid #0f0707;
   display: flex;
   justify-content: space-between; 
   align-items: center; 
-  position: fixed;
   z-index: 10;
 }
 
+.navList {
+  justify-content: left;
+}
 
 /* Links inside the navbar */
 
@@ -48,13 +45,20 @@
   background: url('../../resources/fox2.jpeg') center/cover;
 }
 
+.header {
+  margin-left: 0.625rem;
+  margin-right: 18.75rem;
+  font-family: 'Lobster', sans-serif;
+  font-size: 26px;
+  text-shadow: 2px 2px 2px rgb(228, 120, 48);
+}
 
 ul {
   list-style-type: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1; /* Allow the items to grow and take available space */
+  flex-grow: 1; 
 }
 
 li {
@@ -70,7 +74,7 @@ a {
   font-family: 'Poppins', sans-serif;
   border-style: transparent;
   background-color: white;
-  margin: 0 10px;
+  margin: 0 15px;
   font-weight: 600;
 }
 
@@ -81,21 +85,28 @@ a {
 /* Responsive styles */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column; /* Stack items vertically on smaller screens */
-    align-items: center; /* Center items on smaller screens */
+    flex-direction: column; 
+    align-items: center; 
+    height: auto; 
+  }
+
+  .header {
+    margin-left: 19rem;
   }
 
   ul {
-    width: 100%; /* Make the list take full width */
-    justify-content: flex-start; /* Align items to the start on smaller screens */
-    margin-top: 10px; /* Add some space between logo and items */
+    width: 100%; 
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
   }
 
   li {
-    margin: 5px 0; /* Adjust margin for stacked items */
+    margin: 10px 0; 
   }
 
   .buttonLogout {
-    margin-left: auto; /* Move the logout button to the right on smaller screens */
+    margin-left: 0; 
+    margin-top: 10px; 
   }
 }

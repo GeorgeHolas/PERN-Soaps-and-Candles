@@ -1,57 +1,96 @@
 /* ProductDetails.module.css */
 
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.productImage {
+  width: 25%;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+
+}
+
+.productDetailsContainer {
+  width: 48%; 
+  padding: 20px;
+  border: 1px solid #cccccc77;
+  border-left: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+  backdrop-filter: invert(55%);
+}
+
 .productDetails {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 200px auto; 
-    display: flex;
+  text-align: justify;
+}
+
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-top: 40px;
+  backdrop-filter: invert(55%);
+  margin-left: 45.125rem;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 25%;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.priceContainer .price {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.priceContainer button {
+  background-color: #be5011d0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.priceContainer button:hover {
+  background-color: #be5111;
+}
+
+.returnLink p {
+  font-weight: 300;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+.returnLink p:hover {
+  color: #030303;
+  font-weight: 600;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .mainContainer {
     flex-direction: column;
-    align-items: center;  
-    background-color: white;  
-    width: 30%;
-  }
-  
-  .productDetails h2 {
-    color: #070707;
-    font-size: 24px;
-    font-family: 'Rubik Doodle Shadow', system-ui;
-  }
-  
-  .productDetails p {
-    color: #080808;
-    font-weight: 600;
-  }
-  
-  .productDetails img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .productDetails p.price {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .productDetails button {
-    background-color: #be5111;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-    display: flex;   
-  }
-  
-  .productDetails button:hover {
-    background-color: #be5111;
+    align-items: center;
   }
 
-  .returnLink:hover {
-    color:#be5111;
-    font-weight: 600;
+  .productImage {
+    width: 100%; 
+    border-radius: 5px;
+    margin-bottom: 15px; 
   }
-  
+  .productDetailsContainer {
+    width: 100%; 
+    border-radius: 5px;
+  }
+
+  .priceContainer {
+    margin-left: 0; 
+  }
+}

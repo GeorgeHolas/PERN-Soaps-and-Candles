@@ -50,6 +50,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+      <NavigationBar cartItems={cartItems} onLogout={handleLogout} isAuthenticated={isAuthenticated} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -75,7 +76,6 @@ function App() {
             element={<PrivateRoute element={<OrderHistory />} />}
           />
         </Routes>
-        <NavigationBar cartItems={cartItems} onLogout={handleLogout} isAuthenticated={isAuthenticated} />
       </Router>
     </AuthProvider>
   );

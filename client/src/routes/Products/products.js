@@ -1,5 +1,4 @@
 // Products.js
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './products.module.css';
@@ -31,7 +30,7 @@ const ProductList = ({ title, category }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch products from the API endpoint with category filter
+    // Fetch products from the API endpoint
     fetch(`http://localhost:4000/products?category=${category}`)
       .then(response => response.json())
       .then(data => setProducts(data))
@@ -39,7 +38,7 @@ const ProductList = ({ title, category }) => {
   }, [category]);
 
   return (
-    <div className={styles.productsBody}>
+    <div>
       <h2 className={styles.productTitle}>{title}</h2>
       <div className={styles.productcontainer}>
         {products.map(product => (

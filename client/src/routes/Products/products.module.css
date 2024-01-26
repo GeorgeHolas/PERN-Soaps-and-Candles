@@ -2,7 +2,7 @@
 
 .productcontainer {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 2px;
 }
 
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 15vh;
 }
 
 .product {
@@ -21,14 +21,14 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  margin: 10px;
   flex: 1;
   background-color: #fff;
 }
 
 .product:hover {
   transform: scale(1.1); 
-  box-shadow: 0 0 10px rgba(39, 34, 34, 0.8); 
+  box-shadow: 0 0 15px rgb(39, 34, 34); 
   transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
@@ -76,14 +76,12 @@
   margin-top: 15px;
   transition: background-color 0.3s ease;
   font-size: 16px;
-  font-weight: 600;
-  font-family: 'Rubik Doodle Shadow', system-ui;
+  font-family: 'Acme', sans-serif;
 }
 
 .detailsLink:hover {
   color: #be5111;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .pageContainer {
@@ -91,14 +89,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vh;
 }
 
 .products h1 {
-  font-family: 'Rubik Doodle Shadow', system-ui;
+  font-family: 'Acme', sans-serif;
   font-size: 32px;
   text-align: center;
-  margin-top: 130px;
+  margin-top: 40px;
   letter-spacing: 2px; 
 }
 
@@ -106,7 +103,6 @@
   display: inline-block;
   color: #070101;
   text-decoration: none;
-  font-weight: 500;
   font-size: 16px;
   margin-top: 10px;
 }

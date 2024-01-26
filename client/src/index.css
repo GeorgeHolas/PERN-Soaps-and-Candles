@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@1,300&family=Indie+Flower&family=Philosopher:ital@1&family=Rubik+Doodle+Shadow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Moo+Lah+Lah&display=swap');
 
 body {
   margin: 0;
@@ -8,8 +11,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('../../client/src/resources/ProductsPage.jpg') no-repeat;
+  background: url('../../client/src/resources/Register.jpg') no-repeat;
   background-size: cover;
   background-position: center;
-  min-width: fit-content;
 }
