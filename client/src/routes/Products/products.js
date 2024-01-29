@@ -49,6 +49,7 @@ const ProductList = ({ title, category }) => {
   );
 };
 
+// Products page component
 const Products = () => {
   return (
     <div className={`${styles.pageContainer} ${styles.products}`}>
