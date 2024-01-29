@@ -73,7 +73,7 @@ return (
     <div className={styles.priceContainer}>
       <p className={styles.price}>Price: ${product.Price}</p>
       <button onClick={handleAddToCart}>Add to Cart</button>
-      {addToCartMessage && <p>{addToCartMessage}</p>}
+      {addToCartMessage && <p className={styles.addToCartMessage}>{addToCartMessage}</p>}
       <Link to="/Products" className={styles.returnLink}>
         <p>Return to Products</p>
       </Link>
