@@ -1,6 +1,6 @@
 // LogoutMessage.js
-import React from 'react';
-import styles from './logoutMessage.module.css';
+import React from "react";
+import styles from "./logoutMessage.module.css";
 
 // LogoutMessage component
 const LogoutMessage = ({ message }) => {
