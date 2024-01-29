@@ -13,8 +13,6 @@
   justify-content: left;
 }
 
-/* Links inside the navbar */
-
 .navbar a {
   color: #0f0707;
   font-weight: 500;
@@ -23,8 +21,6 @@
   padding: 10px 20px;
   text-align: center;
 }
-
-/* Change background on mouse-over */
 
 .navbar a:hover {
   font-weight: 500;
@@ -36,8 +32,6 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
-/* The navigation bar logo */
 
 .logo {
   height: 25px;

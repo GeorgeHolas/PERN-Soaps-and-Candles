@@ -13,10 +13,12 @@ import PrivateRoute from './PrivateRoute/privateRoute';
 import OrderHistory from '../components/OrderHistory/orderHistory';
 import { AuthProvider, useAuth } from '../routes/AuthContext';
 
+// App component
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const { isAuthenticated, logout } = useAuth();
 
+// Add item to a cart
   const addToCart = (newItem) => {
     const isItemInCart = cartItems.some((item) => item.Product_id === newItem.Product_id);
 
@@ -28,11 +30,13 @@ function App() {
     }
   };
 
+// Remove item from a cart
   const removeFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.Product_id !== productId);
     setCartItems(updatedCart);
   };
 
+// Update quantity of a product in a cart
   const updateQuantity = (productId, newQuantity) => {
     const updatedCart = cartItems.map((item) =>
       item.Product_id === productId
@@ -41,7 +45,8 @@ function App() {
     );
     setCartItems(updatedCart);
   };
-
+  
+// Logout
   const handleLogout = () => {
     logout();
     setCartItems([]);

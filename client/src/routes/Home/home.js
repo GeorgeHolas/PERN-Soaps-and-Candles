@@ -19,7 +19,7 @@ function Home() {
       images.forEach((image, index) => {
         setTimeout(() => {
           image.style.opacity = '1';
-        }, index * 1500); // Adjust the delay as needed
+        }, index * 1500); 
       });
     };
 
@@ -27,7 +27,6 @@ function Home() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      // Adjust the threshold as needed
       if (scrollY > windowHeight * 0.5) {
         fadeInImages();
         // Remove the event listener after it's triggered to avoid unnecessary calls
