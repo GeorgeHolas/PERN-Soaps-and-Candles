@@ -158,7 +158,7 @@ const calculateTotalAmount = (items) => {
   };
   
 const Checkout = ({ cartItems }) => {
-const stripePromise = loadStripe('pk_test_51OSinJAdtQPayGzAJ4J6nek6Fh9i4iUFrkDRRw0J9OonrY2dhAr6yBcE3WR2XnVEudZ2myYnBjSSjHbomQ55M8QS00EYO911Dl');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 return (
 <Elements stripe={stripePromise}>
