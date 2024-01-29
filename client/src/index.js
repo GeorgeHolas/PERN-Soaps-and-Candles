@@ -1,12 +1,12 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Elements } from 'react-stripe-elements';
-import App from './components/App';
-import { AuthProvider } from './routes/AuthContext';
-import './index.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Elements } from "react-stripe-elements";
+import App from "./components/App";
+import { AuthProvider } from "./routes/AuthContext";
+import "./index.css";
 
 // Create a root element that will be rendered
-const root = document.getElementById('root');
+const root = document.getElementById("root");
 const reactRoot = createRoot(root);
 
 // Stripe test key
