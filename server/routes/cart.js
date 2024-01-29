@@ -1,39 +1,49 @@
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../db/db');
+const db = require("../db/db");
+
+const validateCartInput = (req, res, next) => {
+  const { product_id, quantity } = req.body;
+  if (!product_id || !quantity) {
+    return res.status(400).json({ error: "Invalid input data" });
+  }
+  next();
+};
 
 router.use(express.json());
+router.use(validateCartInput); // Input validation middleware
 
 // Get all items in the cart
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM "Cart"');
     res.json(result.rows);
   } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // Get a cart item by id
-router.get('/:cart_id', async (req, res) => {
+router.get("/:cart_id", async (req, res) => {
   try {
     const { cart_id } = req.params;
-    const result = await db.query('SELECT * FROM "Cart" WHERE "Cart_id" = $1', [cart_id]);
+    const result = await db.query('SELECT * FROM "Cart" WHERE "Cart_id" = $1', [
+      cart_id,
+    ]);
     if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Cart item not found' });
+      res.status(404).json({ error: "Cart item not found" });
     } else {
       res.json(result.rows[0]);
     }
   } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // Add a new item to the cart
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { product_id, quantity } = req.body;
     const result = await db.query(
@@ -41,16 +51,15 @@ router.post('/', async (req, res) => {
       [product_id, quantity]
     );
 
-    // The result.rows[0] contains the newly added cart item
     res.json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // Update quantity of a specific cart item
-router.put('/:cart_id', async (req, res) => {
+router.put("/:cart_id", async (req, res) => {
   try {
     const { cart_id } = req.params;
     const { quantity } = req.body;
@@ -60,30 +69,33 @@ router.put('/:cart_id', async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Cart item not found' });
+      res.status(404).json({ error: "Cart item not found" });
     } else {
       res.json(result.rows[0]);
     }
   } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // Remove a specific item from the cart
-router.delete('/:cart_id', async (req, res) => {
+router.delete("/:cart_id", async (req, res) => {
   try {
     const { cart_id } = req.params;
-    const result = await db.query('DELETE FROM "Cart" WHERE "Cart_id" = $1 RETURNING *', [cart_id]);
+    const result = await db.query(
+      'DELETE FROM "Cart" WHERE "Cart_id" = $1 RETURNING *',
+      [cart_id]
+    );
 
     if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Cart item not found' });
+      res.status(404).json({ error: "Cart item not found" });
     } else {
-      res.json({ message: 'Cart item deleted successfully' });
+      res.json({ message: "Cart item deleted successfully" });
     }
   } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

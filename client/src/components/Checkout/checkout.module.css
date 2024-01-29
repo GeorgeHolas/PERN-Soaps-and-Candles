@@ -1,22 +1,32 @@
 /* checkout.module.css */
 
 .checkoutContainer {
+  max-width: 600px;
   max-width: 650px;
   padding: 10px;
+  border: 1px solid #ccc;
   border: 1px solid #0a0a0a;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(15, 15, 15, 0.1);
+  margin: 50px auto; 
   margin: 3rem auto !important; 
   backdrop-filter: blur(5px);
   background-color:  #faf9f8ad;
 }
 
 .checkoutContainer h3 {
+ font-family: 'Rubik Doodle Shadow', system-ui; 
  font-family: 'Acme', sans-serif; 
  font-size: 36px;
  text-align: center;
  font-weight: 600;
+ margin-bottom: 20px;
  margin-bottom: 10px;
  margin-top: 20px;
+}
+
+.checkoutContainer h1 {
+  font-size: 22px;
 }
 
 .checkoutContainer h1, 
@@ -35,50 +45,41 @@ h2 {
 }
 
 .paymentDetails {
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin-top: 10px;
   text-align: center;
 }
 
 .paymentDetails h2 {
+  margin-bottom: 30px;
   margin-bottom: 10px;
   font-size: 22px;
 }
 
 .CardElement {
   display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
   padding: 5px;
   margin-bottom: 5px;
   border: 1px solid #050505;
   border-radius: 4px;
 }
 
-.paymentError {
-  color: red;
-  margin-top: 10px;
-}
-
 .checkoutContainer p {
   font-size: 14px;
+  color: #444;
   color: #0a0a0a;
   line-height: 1.5;
+  font-weight: 400;
 }
 
 .buttonPay {
   margin-top: 35px;
+  background-color: transparent;
   border: 1px solid black;
   font-size: 18px;
   font-weight: 400;
-  color: rgb(15, 15, 15);
-}
-
-.buttonPay:hover {
-  cursor: pointer;
-  background-color: #b94b0b;
-}
-
-/* Adjust styling for larger screens */
-@media (min-width: 768px) {
-  .checkoutContainer {
-    margin-top: 200px; 
-  }
 }
