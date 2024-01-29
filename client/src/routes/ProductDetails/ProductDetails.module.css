@@ -16,7 +16,7 @@
 }
 
 .productDetailsContainer {
-  width: 48%; 
+  width: 48%;
   padding: 20px;
   border: 1px solid #cccccc77;
   border-left: none;
@@ -81,16 +81,17 @@
   }
 
   .productImage {
-    width: 100%; 
+    width: 100%;
     border-radius: 5px;
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
   }
+
   .productDetailsContainer {
-    width: 100%; 
+    width: 100%;
     border-radius: 5px;
   }
 
   .priceContainer {
-    margin-left: 0; 
+    margin-left: 0;
   }
 }
