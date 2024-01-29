@@ -4,16 +4,16 @@
   background-color: #faf9f8ad;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 20px; 
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem auto; 
+  margin: 3rem auto;
   width: 30%;
 }
 
 .cart {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 
@@ -29,8 +29,8 @@
 }
 
 .cart h2 {
-  padding: 10px; 
-  border-radius: 10px; 
+  padding: 10px;
+  border-radius: 10px;
   color: black;
   font-weight: 600;
   font-family: 'Acme', sans-serif;
@@ -84,7 +84,7 @@
   text-align: center;
   font-weight: 600;
   border-radius: 5px;
-  min-width: 80px; 
+  min-width: 80px;
   margin-left: 10px;
 }
 
@@ -109,7 +109,7 @@
 
 .quantityBtn:hover {
   background-color: #cf6121;
-  color: white; 
+  color: white;
 }
 
 .checkoutBtn:hover {

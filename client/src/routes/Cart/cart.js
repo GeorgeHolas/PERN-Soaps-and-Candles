@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Elements } from 'react-stripe-elements';
-import styles from './cart.module.css';
-import Checkout from '../../components/Checkout/checkout';
+// Cart.js
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Elements } from "react-stripe-elements";
+import styles from "./cart.module.css";
+import Checkout from "../../components/Checkout/checkout";
 
+// Cart component
 const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
   const [showCheckout, setShowCheckout] = useState(false);
   const navigate = useNavigate();
@@ -19,13 +21,16 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
 
   // Calculate the overall total for the cart
   const calculateCartTotal = () => {
-    return cartItems.reduce((total, item) => total + calculateItemTotal(item), 0);
+    return cartItems.reduce(
+      (total, item) => total + calculateItemTotal(item),
+      0
+    );
   };
 
   // Show the checkout
   const handleCheckout = () => {
     setShowCheckout(true);
-    navigate('/checkout');
+    navigate("/checkout");
   };
 
   return (
@@ -34,7 +39,10 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
         <h2>Your Cart</h2>
         <div className={styles.productContainer}>
           {cartItems.map((item, index) => (
-            <div key={`${item.Product_id}-${index}`} className={styles.cartItem}>
+            <div
+              key={`${item.Product_id}-${index}`}
+              className={styles.cartItem}
+            >
               <div className={styles.productInfo}>
                 <img
                   className={styles.productImg}
@@ -47,14 +55,18 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
               <div className={styles.quantityContainer}>
                 <button
                   className={styles.quantityBtn}
-                  onClick={() => updateQuantity(item.Product_id, (item.quantity || 1) - 1)}
+                  onClick={() =>
+                    updateQuantity(item.Product_id, (item.quantity || 1) - 1)
+                  }
                 >
                   -
                 </button>
                 <span className={styles.quantity}>{item.quantity || 1}</span>
                 <button
                   className={styles.quantityBtn}
-                  onClick={() => updateQuantity(item.Product_id, (item.quantity || 1) + 1)}
+                  onClick={() =>
+                    updateQuantity(item.Product_id, (item.quantity || 1) + 1)
+                  }
                 >
                   +
                 </button>
