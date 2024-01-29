@@ -10,8 +10,9 @@ const validateCartInput = (req, res, next) => {
   next();
 };
 
+// Use middleware
 router.use(express.json());
-router.use(validateCartInput); // Input validation middleware
+router.use(validateCartInput); 
 
 // Get all items in the cart
 router.get("/", async (req, res) => {
