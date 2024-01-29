@@ -38,9 +38,7 @@ const handleCardElementChange = (e) => {
 const handlePayment = async (e) => {
   e.preventDefault();
   setProcessingPayment(true);
-    
   try {
-// Use elements.getElement to get the CardElement
 const cardElement = elements.getElement(CardElement);
     
 // Create a token from the CardElement
@@ -69,7 +67,7 @@ const placeOrder = async () => {}
      console.log('Payment successful');
      setTimeout(() => {
        window.location.href = 'http://localhost:3000/'; 
-       }, 5000); // 5000 milliseconds = 5 seconds
+       }, 5000); 
   } else {
        console.error('Payment failed');
        }
