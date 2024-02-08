@@ -31,9 +31,9 @@ function Registration() {
 
       if (response.ok) {
         // Registration successful, log in the user
-        login(values);
+        login(response.data);
         console.log("Registration successful!");
-        navigate("/login");
+        navigate("/products");
       } else {
         const errorData = await response.json();
         // Handle registration errors
@@ -60,7 +60,7 @@ function Registration() {
               type="text"
               id="username"
               name="username"
-              autocomplete="username"
+              autoComplete="username"
               className={styles.input}
             />
             <ErrorMessage name="username" component="span" />
@@ -72,7 +72,7 @@ function Registration() {
               type="password"
               id="password"
               name="password"
-              autocomplete="current-password"
+              autoComplete="current-password"
               className={styles.input}
             />
             <ErrorMessage name="password" component="span" />

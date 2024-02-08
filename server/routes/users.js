@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db/db');
+const authenticate = require('../routes/auth')
+
+router.use(authenticate);
+router.use(express.json());
 
 // GET /users
 router.get('/', async (req, res) => {
   try {
     // Retrieve a list of users
     const getUsersQuery = 'SELECT * FROM public."Customers"';
-    const users = await pool.query(getUsersQuery);
+    const users = await db.query(getUsersQuery);
 
     res.status(200).json(users.rows);
   } catch (error) {
@@ -22,7 +27,7 @@ router.get('/:userId', async (req, res) => {
   try {
     // Retrieve a specific user by ID
     const getUserQuery = 'SELECT * FROM public."Customers" WHERE customer_id = $1';
-    const user = await pool.query(getUserQuery, [userId]);
+    const user = await db.query(getUserQuery, [userId]);
 
     if (user.rows.length === 0) {
       res.status(404).json({ error: 'User not found' });
@@ -49,7 +54,7 @@ router.put('/:userId', async (req, res) => {
       RETURNING *;
     `;
 
-    const updatedUser = await pool.query(updateUserQuery, [firstName, lastName, address, email, userId]);
+    const updatedUser = await db.query(updateUserQuery, [firstName, lastName, address, email, userId]);
 
     if (updatedUser.rows.length === 0) {
       res.status(404).json({ error: 'User not found' });

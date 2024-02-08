@@ -1,21 +1,21 @@
 // Checkout.js
+
 import React, { useState } from "react";
-import {
-  Elements,
-  useElements,
-  useStripe,
-  CardElement,
-} from "@stripe/react-stripe-js";
+import { Elements, useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import PaymentMessage from "../PaymentMessage/paymentMessage";
+import { useAuth } from "../../routes/AuthContext"; 
 import styles from "./checkout.module.css";
 
 // Define the CheckoutForm component
-const CheckoutForm = ({ cartItems }) => {
+const CheckoutForm = ({ cartItems, customerId }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [paymentError, setPaymentError] = useState(null);
   const [processingPayment, setProcessingPayment] = useState(false);
+  const [showPaymentMessage, setShowPaymentMessage] = useState(false);
+  const [paymentSuccessMessage, setPaymentSuccessMessage] = useState("");
 
   // Additional state for customer information
   const [customerInfo, setCustomerInfo] = useState({
@@ -40,39 +40,67 @@ const CheckoutForm = ({ cartItems }) => {
     }
   };
 
+  console.log("User from login:", { username: 'testuser20', password: 'testuser20' });
+
   const handlePayment = async (e) => {
     e.preventDefault();
-    setProcessingPayment(true);
-    try {
-      const cardElement = elements.getElement(CardElement);
 
-      // Create a token from the CardElement
-      const { token, error } = await stripe.createToken(cardElement);
+    console.log("User in handlePayment:", customerId);
+
+    // Check if all required customer information is filled
+    if (
+      !customerInfo.firstName ||
+      !customerInfo.lastName ||
+      !customerInfo.address ||
+      !customerInfo.email
+    ) {
+      setPaymentError("Please fill in all customer information before proceeding to payment.");
+      return;
+    }
+
+    setProcessingPayment(true);
+
+      try {
+      // Create a PaymentMethod from the CardElement
+      const { paymentMethod, error } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: elements.getElement(CardElement),
+      });
+;
 
       if (error) {
         setPaymentError(error.message);
       } else {
+        
+        // Add this check
+        if(!customerId || !customerId) {
+          console.error("Customer not logged in");
+          return <p>Please login to access checkout</p>;
+        }      
+
         const response = await fetch("http://localhost:4000/orders", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            customerId: token?.card?.customer,
+            customerId, // Check if user is defined before accessing properties
+            paymentMethodId: paymentMethod.id,
             total: calculateTotalAmount(cartItems),
             status: "Complete",
-            created: new Date().toISOString(),
+            created: new Date(),
+            customerInfo: { ...customerInfo }, // Include customer information in the request
           }),
         });
 
-        const placeOrder = async () => {};
         if (response.ok) {
-          await placeOrder();
           setPaymentError(null);
-          console.log("Payment successful");
+          setPaymentSuccessMessage("Payment was successful!");
+          setShowPaymentMessage(true);
+
           setTimeout(() => {
             window.location.href = "http://localhost:3000/";
-          }, 5000);
+          }, 3000);
         } else {
           console.error("Payment failed");
         }
@@ -108,6 +136,7 @@ const CheckoutForm = ({ cartItems }) => {
               name="firstName"
               value={customerInfo.firstName}
               onChange={handleInputChange}
+              autoComplete="given-name"
               required
             />
           </label>
@@ -118,6 +147,7 @@ const CheckoutForm = ({ cartItems }) => {
               name="lastName"
               value={customerInfo.lastName}
               onChange={handleInputChange}
+              autoComplete="family-name"
               required
             />
           </label>
@@ -128,6 +158,7 @@ const CheckoutForm = ({ cartItems }) => {
               value={customerInfo.address}
               onChange={handleInputChange}
               rows="4"
+              autoComplete="street-address"
               required
             ></textarea>
           </label>
@@ -138,6 +169,7 @@ const CheckoutForm = ({ cartItems }) => {
               name="email"
               value={customerInfo.email}
               onChange={handleInputChange}
+              autoComplete="email"
               required
             />
           </label>
@@ -165,6 +197,7 @@ const CheckoutForm = ({ cartItems }) => {
           <div className={styles.paymentError}>{paymentError}</div>
         )}
       </div>
+      {showPaymentMessage && <PaymentMessage message={paymentSuccessMessage} />}
     </div>
   );
 };
@@ -172,9 +205,25 @@ const CheckoutForm = ({ cartItems }) => {
 const Checkout = ({ cartItems }) => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
+  const { getUser } = useAuth();
+
+  const user = getUser(); 
+
+  if (!user) {
+    console.log("Customer not logged in");
+    return;
+  }
+
+  console.log("User", user);
+
+  const customerId = user.id;
+
+    // Set mock data 
+localStorage.setItem("user", JSON.stringify({id: 1})) 
+
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm cartItems={cartItems} />
+      <CheckoutForm cartItems={cartItems} customerId={customerId} />
     </Elements>
   );
 };
