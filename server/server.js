@@ -36,9 +36,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Handle the root path
-app.get('/', (req, res) => {
-  res.send('Hello, this is the root path!');
+// Middleware to handle errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 // Swagger Options

@@ -1,5 +1,4 @@
 // orders.js
-
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
@@ -52,7 +51,7 @@ router.post('/', async (req, res) => {
 
     // Use the existing Customer_id for updating customer information in Customers table
     await db.query(
-      'UPDATE public."Customers" SET "First_Name" = $1, "Last_Name" = $2, "Address" = $3, "Email" = $4 WHERE "Customer_id" = $5',
+      'UPDATE public."Customers" SET "First_Name" = $1, "Last_Name" = $2, "Address" = $3, "Email" = $4 WHERE "Customer_id" = $5 RETURNING *',
       [customerInfo.firstName, customerInfo.lastName, customerInfo.address, customerInfo.email, customerId]
     );
 

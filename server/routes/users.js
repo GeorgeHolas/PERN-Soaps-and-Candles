@@ -1,3 +1,4 @@
+// user.js
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
@@ -26,7 +27,7 @@ router.get('/:userId', async (req, res) => {
 
   try {
     // Retrieve a specific user by ID
-    const getUserQuery = 'SELECT * FROM public."Customers" WHERE customer_id = $1';
+    const getUserQuery = 'SELECT * FROM public."Customers" WHERE "Customer_id" = $1';
     const user = await db.query(getUserQuery, [userId]);
 
     if (user.rows.length === 0) {
@@ -49,8 +50,8 @@ router.put('/:userId', async (req, res) => {
     // Update user information
     const updateUserQuery = `
       UPDATE public."Customers"
-      SET first_name = $1, last_name = $2, address = $3, email = $4
-      WHERE customer_id = $5
+      SET First_Name = $1, Last_Name = $2, Address = $3, Email = $4
+      WHERE "Customer_id" = $5
       RETURNING *;
     `;
 

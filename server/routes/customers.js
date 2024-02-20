@@ -2,7 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
+const authenticate = require('../routes/auth')
 
+router.use(authenticate);
 router.use(express.json());
 
 // Middleware for error handling
@@ -39,9 +41,9 @@ router.get('/:customer_id', async (req, res) => {
 // Create a new customer
 router.post('/', async (req, res) => {
   try {
-    const { first_name, last_name, email, address, city, state, zip } = req.body;
+    const { first_name, last_name, email, address} = req.body;
     const result = await db.query(
-      'INSERT INTO "Customers" ("First_name", "Last_name", "Email", "Address") VALUES ($1, $2, $3, $4) RETURNING *',
+      'INSERT INTO "Customers" ("First_Name", "Last_Name", "Email", "Address") VALUES ($1, $2, $3, $4) RETURNING *',
       [first_name, last_name, email, address]
     );
     res.status(201).json(result.rows[0]);
@@ -54,10 +56,10 @@ router.post('/', async (req, res) => {
 router.put('/:customer_id', async (req, res) => {
   try {
     const { customer_id } = req.params;
-    const { first_name, last_name, email, address, city, state, zip } = req.body;
+    const { first_name, last_name, email, address } = req.body;
     const result = await db.query(
-      'UPDATE "Customers" SET "First_name" = $1, "Last_name" = $2, "Email" = $3, "Address" = $4, "City" = $5, "State" = $6, "Zip" = $7 WHERE "Customer_id" = $8',
-      [first_name, last_name, email, address, city, state, zip, customer_id]
+      'UPDATE "Customers" SET "First_Name" = $1, "Last_Name" = $2, "Email" = $3, "Address" = $4  WHERE "Customer_id" = $5 RETURNING *',
+      [first_name, last_name, email, address, customer_id]
     );
     if (result.rowCount === 0) {
       res.status(404).json({ error: 'Customer not found' });
