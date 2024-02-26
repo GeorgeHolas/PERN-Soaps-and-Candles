@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [customerId, setCustomerId] = useState(null);
   const [logoutMessage, setLogoutMessage] = useState(null);
   const [stripeKey, setStripeKey] = useState(null);
 
@@ -14,26 +15,38 @@ export const AuthProvider = ({ children }) => {
     setStripeKey(publishableKey);
   }, []);
 
-
-  // Login
   const login = (user) => {
-    console.log("Logging in"); 
-    setUser(user); 
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("userId", user.id);
-  }
 
-  // Get user
-  const getUser = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = localStorage.getItem("userId");
-    console.log(localStorage.getItem("user"));
-    console.log(localStorage.getItem("userId"));
-    if (userId) {
-      return user; 
-    }
-    return null;
+    // Update to expect user object 
+    setUser(user);  
+  
+    // Get Customer_id from user object
+    setCustomerId(user.Customer_id);
+  
+    localStorage.setItem("user", JSON.stringify(user));
+  
+    // Store user object in localStorage
+    localStorage.setItem("customerId", user.Customer_id);
+  
+    setLogoutMessage("Login successful. Welcome!");
+  
+    console.log('User', user);
+    console.log('Customer Id', user.Customer_id);
   }
+  
+// Get user
+const getUser = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("userId"); // This should be "customerId" instead of "userId"
+  console.log(localStorage.getItem("user"));
+  console.log(localStorage.getItem("userId"));
+  if (userId) {
+    return user; 
+  }
+  return null;
+}
+
+const getCustomerId = () => localStorage.getItem('customerId');
   
   // Logout
   const logout = () => {
@@ -50,6 +63,8 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        customerId,
+        getCustomerId,
         getUser,
         login,
         logout,

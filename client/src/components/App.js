@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "../routes/Login/login";
@@ -13,10 +12,12 @@ import PrivateRoute from "./PrivateRoute/privateRoute";
 import OrderHistory from "../components/OrderHistory/orderHistory";
 import { AuthProvider, useAuth } from "../routes/AuthContext";
 
-// App component
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth(); // Assuming useAuth provides user data
+
+  // For testing, replace this with actual customer ID
+  const customerId = user ? user.customerId : ""; // Assuming user has customerId
 
   // Add item to a cart
   const addToCart = (newItem) => {
@@ -103,12 +104,12 @@ function App() {
           <Route
             path="/checkout"
             element={
-              <PrivateRoute element={<Checkout cartItems={cartItems} />} />
+              <PrivateRoute element={<Checkout cartItems={cartItems} customerId={customerId} />} />
             }
           />
           <Route
             path="/orders"
-            element={<PrivateRoute element={<OrderHistory />} />}
+            element={<PrivateRoute element={<OrderHistory customerId={customerId} />} />}
           />
         </Routes>
       </Router>

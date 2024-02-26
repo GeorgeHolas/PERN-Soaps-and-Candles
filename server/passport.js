@@ -33,7 +33,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 }));
 
 passport.serializeUser((user, done) => {
-  done(null, user.Customer_id);
+  done(null, user.Customer_id);  
 });
 
 passport.deserializeUser(async (Customer_id, done) => {

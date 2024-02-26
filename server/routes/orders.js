@@ -1,4 +1,3 @@
-// orders.js
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
@@ -8,29 +7,24 @@ const authenticate = require('../routes/auth')
 router.use(authenticate);
 router.use(express.json());
 
-// Get all orders
+// Get all orders or orders by customer_id
 router.get('/', async (req, res) => {
   try {
-    console.log('Request received at /orders');
-    const result = await db.query('SELECT * FROM public."Orders"');
+    const { customerId } = req.query;
+
+    let query;
+    let values = [];
+
+    if (customerId) {
+      query = 'SELECT * FROM public."Orders" WHERE "Customer_id" = $1';
+      values = [customerId];
+    } else {
+      query = 'SELECT * FROM public."Orders"';
+    }
+
+    const result = await db.query(query, values);
     console.log('Query result:', result.rows);
     res.json(result.rows);
-  } catch (error) {
-    console.error('Error executing query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// Get an order by id
-router.get('/:order_id', async (req, res) => {
-  try {
-    const { orderId } = req.params;
-    const result = await db.query('SELECT * FROM public."Orders" WHERE "Order_id" = $1', [orderId]);
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Order not found' });
-    } else {
-      res.json(result.rows[0]);
-    }
   } catch (error) {
     console.error('Error executing query:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -51,8 +45,8 @@ router.post('/', async (req, res) => {
 
     // Use the existing Customer_id for updating customer information in Customers table
     await db.query(
-      'UPDATE public."Customers" SET "First_Name" = $1, "Last_Name" = $2, "Address" = $3, "Email" = $4 WHERE "Customer_id" = $5 RETURNING *',
-      [customerInfo.firstName, customerInfo.lastName, customerInfo.address, customerInfo.email, customerId]
+      'UPDATE public."Customers" SET "First_Name" = $1, "Last_Name" = $2, "Address" = $3, "Email" = $4 RETURNING *',
+      [customerInfo.firstName, customerInfo.lastName, customerInfo.address, customerInfo.email]
     );
 
     res.status(201).json({ order: orderResult.rows[0], customerId });

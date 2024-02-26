@@ -1,6 +1,6 @@
 // Checkout.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Elements, useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentMessage from "../PaymentMessage/paymentMessage";
@@ -11,7 +11,7 @@ import styles from "./checkout.module.css";
 const CheckoutForm = ({ cartItems, customerId }) => {
   const stripe = useStripe();
   const elements = useElements();
-
+  
   const [paymentError, setPaymentError] = useState(null);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [showPaymentMessage, setShowPaymentMessage] = useState(false);
@@ -70,13 +70,7 @@ const CheckoutForm = ({ cartItems, customerId }) => {
 
       if (error) {
         setPaymentError(error.message);
-      } else {
-        
-        // Add this check
-        if(!customerId || !customerId) {
-          console.error("Customer not logged in");
-          return <p>Please login to access checkout</p>;
-        }      
+      } else {    
 
         const response = await fetch("http://localhost:4000/orders", {
           method: "POST",
@@ -205,21 +199,18 @@ const CheckoutForm = ({ cartItems, customerId }) => {
 const Checkout = ({ cartItems }) => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
-  const { getUser } = useAuth();
+  const { getUser, getCustomerId } = useAuth();
+  const user = getUser();
+  const customerId = getCustomerId();
 
-  const user = getUser(); 
+  useEffect(() => {
+    console.log("User from login:", user);
+    console.log("Customer_id from login:", customerId);
+    // Here you can use customerId to make the order
+  }, [user, customerId]);
 
-  if (!user) {
-    console.log("Customer not logged in");
-    return;
-  }
-
-  console.log("User", user);
-
-  const customerId = user.id;
-
-    // Set mock data 
-localStorage.setItem("user", JSON.stringify({id: 1})) 
+  // Set mock data 
+  //localStorage.setItem("user", JSON.stringify({id: 1})) 
 
   return (
     <Elements stripe={stripePromise}>
