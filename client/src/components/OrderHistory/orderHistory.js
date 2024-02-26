@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./orderHistory.module.css";
+import { useAuth } from "../../routes/AuthContext"; // Import useAuth hook
 
-const OrderHistory = ({ customerId }) => {
+const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
+  const { getCustomerId } = useAuth(); // Use useAuth hook to get customerId
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,6 +14,8 @@ const OrderHistory = ({ customerId }) => {
       console.error("User not authenticated");
       return;
     }
+
+    const customerId = getCustomerId(); // Get customerId from useAuth
 
     fetch(`http://localhost:4000/orders?customerId=${customerId}`, {
       method: "GET",
@@ -23,7 +27,7 @@ const OrderHistory = ({ customerId }) => {
       .then((response) => response.json())
       .then((data) => setOrderHistory(data))
       .catch((error) => console.error("Error fetching order history", error));
-  }, [customerId]);
+  }, [getCustomerId]);
 
   const handleReturnHome = () => {
     navigate("/");
@@ -32,7 +36,7 @@ const OrderHistory = ({ customerId }) => {
   return (
     <div className={styles.orderContainer}>
       <div className={styles.container}>
-        <h2>Order History for Customer ID: {customerId}</h2>
+        <h2>Order History</h2>
         {orderHistory.map((order) => (
           <div key={order.Order_id} className={styles.order}>
             <p>
