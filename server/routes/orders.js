@@ -43,18 +43,38 @@ router.post('/', async (req, res) => {
       [customerId, orderId, total, status]
     );
 
-    // Use the existing Customer_id for updating customer information in Customers table
-    await db.query(
-      'UPDATE public."Customers" SET "First_Name" = $1, "Last_Name" = $2, "Address" = $3, "Email" = $4 RETURNING *',
-      [customerInfo.firstName, customerInfo.lastName, customerInfo.address, customerInfo.email]
-    );
-
-    res.status(201).json({ order: orderResult.rows[0], customerId });
-  } catch (err) {
-    console.error('Error creating order:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+      // Check if customer already exists
+      const existingCustomer = await db.query(
+        'SELECT * FROM public."Customers" WHERE "Customer_id"=$1',
+        [customerId]
+      );
+  
+      if (existingCustomer.rowCount > 0) {
+        
+        // Update existing customer
+        await db.query(
+          'UPDATE public."Customers" SET "First_Name"=$1, "Last_Name"=$2, "Email"=$3, "Address"=$4 WHERE "Customer_id"=$5',
+          [customerInfo.firstName, customerInfo.lastName, customerInfo.email, customerInfo.address, customerId]  
+        );
+  
+      } else {
+  
+        // Insert new customer 
+        await db.query(
+          'INSERT INTO public."Customers" ("Customer_id", "First_Name", "Last_Name", "Email", "Address") VALUES ($1, $2, $3, $4, $5)',
+          [customerId, customerInfo.firstName, customerInfo.lastName, customerInfo.email, customerInfo.address]
+        );
+  
+      }
+  
+      res.status(201).json({order: orderResult.rows[0]});
+  
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({error: 'Internal server error'});
+    }
+  
+  });
 
 // Update a specific order
 router.put('/:order_id', async (req, res) => {
