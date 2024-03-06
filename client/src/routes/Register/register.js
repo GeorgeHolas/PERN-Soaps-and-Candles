@@ -1,5 +1,4 @@
-// Register.js
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../AuthContext";
@@ -16,6 +15,7 @@ const validationSchema = Yup.object().shape({
 function Registration() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null); // State to hold the error message
 
   const onSubmit = async (values) => {
     try {
@@ -32,13 +32,14 @@ function Registration() {
         const data = await response.json();
         login(data); 
         console.log("Registration successful!");
-        navigate("/login");
+        navigate("/products");
       } else {
         const errorResponse = await response.json();
-        console.error("Registration error:", errorResponse);
+        setError(errorResponse.error); // Set the error message in state
       }
     } catch (error) {
       console.error("Registration error:", error);
+      setError("Registration failed. Please try again."); // Set a generic error message
     }
   };
 
@@ -75,6 +76,8 @@ function Registration() {
             />
             <ErrorMessage name="password" component="span" />
 
+            {error && <div className={styles.error}>{error}</div>} {/* Display error message */}
+            
             <button type="submit" className={styles.button}>
               Register
             </button>
