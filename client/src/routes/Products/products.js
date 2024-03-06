@@ -27,11 +27,22 @@ const Product = ({ product }) => {
 
 // ProductList component
 const ProductList = ({ title, category }) => {
+  console.log("Category in ProductList:", category); // Log the category prop
+
   const [products, setProducts] = useState([]);
 
   // Fetch products from the API endpoint
   useEffect(() => {
-    fetch(`http://localhost:4000/products?category=${category}`)
+    let url = `http://localhost:4000/products`;
+    
+    // If a category is selected, add it to the URL
+    if (category && (category === "soaps" || category === "candles")) {
+      url += `?category=${category}`;
+    }
+
+    console.log("Fetching from URL:", url); // Log the URL
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -51,10 +62,55 @@ const ProductList = ({ title, category }) => {
 
 // Products page component
 const Products = () => {
+  const [currentCategory, setCurrentCategory] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleCategoryChange = (category) => {
+    setCurrentCategory(category);
+    setShowDropdown(false); // Close the dropdown after selecting a category
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  // Close the dropdown when clicking outside of it
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (showDropdown && !event.target.closest(`.${styles.dropdown}`)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showDropdown]);
+
   return (
     <div className={`${styles.pageContainer} ${styles.products}`}>
       <h1 className={styles.h1}>List of Products</h1>
-      <ProductList category="all" />
+      
+      {/* Dropdown menu */}
+      <div className={styles.dropdown}>
+        <button className={styles.dropbtn} onClick={toggleDropdown}>
+          Filter Products
+        </button>
+        {showDropdown && (
+          <div className={styles.dropdownContent}>
+            <div onClick={() => handleCategoryChange("soaps")}>
+              Soaps
+            </div>
+            <div onClick={() => handleCategoryChange("candles")}>
+              Candles
+            </div>
+          </div>
+        )}
+      </div>
+      
+      {/* Product list */}
+      <ProductList category={currentCategory} />
     </div>
   );
 };
