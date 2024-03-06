@@ -5,10 +5,26 @@ const db = require('../db/db');
 
 router.use(express.json());
 
-// Get all products
+// Get all products or filter by category and name
 router.get('/', async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM "Products"');
+    let query = 'SELECT * FROM "Products"';
+
+    // Check if a type query parameter is provided
+    if (req.query.type) {
+      const { type } = req.query;
+
+      // Validate the type to prevent SQL injection
+      const validTypes = ['soap', 'candle']; // Types in lowercase
+      if (!validTypes.includes(type.toLowerCase())) {
+        return res.status(400).json({ error: 'Invalid type' });
+      }
+
+      // Filter products by type
+      query = `SELECT * FROM "Products" WHERE LOWER("Type") = '${type.toLowerCase()}'`;
+    }
+
+    const result = await db.query(query);
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing query:', error);
@@ -44,7 +60,7 @@ router.post('/', async (req, res) => {
   try {
     const { name, price, description } = req.body;
     const result = await db.query(
-      'INSERT INTO "Products" ("Name", "Price", "Description") VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO "Products" ("Name", "Price", "Description", "Type") VALUES ($1, $2, $3, $4) RETURNING *',
       [name, price, description]
     );
 

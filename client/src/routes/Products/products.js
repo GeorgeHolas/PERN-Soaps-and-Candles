@@ -1,4 +1,3 @@
-// Products.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./products.module.css";
@@ -8,6 +7,7 @@ const Product = ({ product }) => {
   return (
     <Link to={`/products/${product.Product_id}`} className={styles.productLink}>
       <div className={styles.product}>
+        <h3>{product.Name}</h3>
         <div className={styles.imageContainer}>
           <img
             src={process.env.REACT_APP_IMAGE_PATH + `/${product.imageName}`}
@@ -16,8 +16,6 @@ const Product = ({ product }) => {
           />
         </div>
         <div className={styles.productDetails}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
           <div className={styles.detailsLink}>View Details</div>
         </div>
       </div>
@@ -26,27 +24,41 @@ const Product = ({ product }) => {
 };
 
 // ProductList component
-const ProductList = ({ title, category }) => {
-  console.log("Category in ProductList:", category); // Log the category prop
-
+const ProductList = ({ title, type }) => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Fetch products from the API endpoint
   useEffect(() => {
     let url = `http://localhost:4000/products`;
-    
-    // If a category is selected, add it to the URL
-    if (category && (category === "soaps" || category === "candles")) {
-      url += `?category=${category}`;
+
+    if (type) {
+      url += `?type=${type}`;
     }
 
-    console.log("Fetching from URL:", url); // Log the URL
-
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [category]);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Products API Response Data:', data);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          setError('Invalid data received from server');
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setError('Failed to fetch products');
+      });
+  }, [type]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -62,19 +74,18 @@ const ProductList = ({ title, category }) => {
 
 // Products page component
 const Products = () => {
-  const [currentCategory, setCurrentCategory] = useState("");
+  const [currentType, setCurrentType] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleCategoryChange = (category) => {
-    setCurrentCategory(category);
-    setShowDropdown(false); // Close the dropdown after selecting a category
+  const handleTypeChange = (type) => {
+    setCurrentType(type);
+    setShowDropdown(false);
   };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // Close the dropdown when clicking outside of it
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (showDropdown && !event.target.closest(`.${styles.dropdown}`)) {
@@ -91,7 +102,7 @@ const Products = () => {
   return (
     <div className={`${styles.pageContainer} ${styles.products}`}>
       <h1 className={styles.h1}>List of Products</h1>
-      
+
       {/* Dropdown menu */}
       <div className={styles.dropdown}>
         <button className={styles.dropbtn} onClick={toggleDropdown}>
@@ -99,18 +110,21 @@ const Products = () => {
         </button>
         {showDropdown && (
           <div className={styles.dropdownContent}>
-            <div onClick={() => handleCategoryChange("soaps")}>
+            <div onClick={() => handleTypeChange("")}>
+              All
+            </div>
+            <div onClick={() => handleTypeChange("soap")}>
               Soaps
             </div>
-            <div onClick={() => handleCategoryChange("candles")}>
+            <div onClick={() => handleTypeChange("candle")}>
               Candles
             </div>
           </div>
         )}
       </div>
-      
+
       {/* Product list */}
-      <ProductList category={currentCategory} />
+      <ProductList type={currentType} />
     </div>
   );
 };
