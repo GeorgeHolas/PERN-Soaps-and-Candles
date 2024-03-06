@@ -5,9 +5,8 @@ import styles from "./navigationBar.module.css";
 import LogoutMessage from "../LogoutMessage/logoutMessage";
 import { useAuth } from "../../routes/AuthContext";
 
-// Logout message function and clear up of cart
 function NavigationBar({ cartItems }) {
-  const { user, logout, logoutMessage, clearLogoutMessage } = useAuth();
+  const { user, logout, logoutMessage, clearLogoutMessage, isAuthenticated } = useAuth();
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
   // Show the logout message after a certain duration
@@ -39,12 +38,17 @@ function NavigationBar({ cartItems }) {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Sign up</Link>
-          </li>
+          {/* Render login and sign up links only when not authenticated */}
+          {!isAuthenticated && (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Sign up</Link>
+              </li>
+            </>
+          )}
           <li>
             <Link to="/products">Products</Link>
           </li>

@@ -13,9 +13,10 @@ const validationSchema = Yup.object().shape({
 
 // Register function
 function Registration() {
-  const { login } = useAuth();
+  useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState(null); // State to hold the error message
+  const [error, setError] = useState(null); 
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const onSubmit = async (values) => {
     try {
@@ -27,19 +28,22 @@ function Registration() {
         },
         body: JSON.stringify(values),
       });
-  
+
+      const data = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
-        login(data); 
         console.log("Registration successful!");
-        navigate("/products");
+        setError(null); 
+        setRegistrationSuccess(true); 
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); 
       } else {
-        const errorResponse = await response.json();
-        setError(errorResponse.error); // Set the error message in state
+        setError(data.error); 
       }
     } catch (error) {
       console.error("Registration error:", error);
-      setError("Registration failed. Please try again."); // Set a generic error message
+      setError("Registration failed. Please try again."); 
     }
   };
 
@@ -76,8 +80,12 @@ function Registration() {
             />
             <ErrorMessage name="password" component="span" />
 
-            {error && <div className={styles.error}>{error}</div>} {/* Display error message */}
-            
+            {error && <div className={styles.error}>{error}</div>} 
+
+            {registrationSuccess && (
+              <div className={styles.success}>Registration successful!</div>
+            )}
+
             <button type="submit" className={styles.button}>
               Register
             </button>
