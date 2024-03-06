@@ -43,7 +43,6 @@ const ProductList = ({ title, type }) => {
         return response.json();
       })
       .then((data) => {
-        console.log('Products API Response Data:', data);
         if (Array.isArray(data)) {
           setProducts(data);
         } else {
@@ -51,7 +50,6 @@ const ProductList = ({ title, type }) => {
         }
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
         setError('Failed to fetch products');
       });
   }, [type]);
