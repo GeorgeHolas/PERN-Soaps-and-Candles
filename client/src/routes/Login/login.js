@@ -29,7 +29,7 @@ function Login() {
         console.log("Login API Response Data:", responseData);
         
         if (responseData.Customer_id) {
-          login(responseData); // This should set the Customer_id in the context
+          login(responseData); 
           navigate("/products");
         } else {
           console.error("Login API Error: Customer_id missing in response.");

@@ -37,12 +37,18 @@ router.post('/', async (req, res) => {
   const { customerId, total, status, customerInfo } = req.body;
 
   try {
+    if (!customerId || !total || !status) {
+      return res.status(400).json({ error: 'Missing required fields for creating an order' });
+    }
+
     // Insert order information into Orders table
     const orderResult = await db.query(
       'INSERT INTO public."Orders" ("Customer_id", "Order_id", "Total", "Status", "Created") VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP) RETURNING *',
       [customerId, orderId, total, status]
     );
 
+    // Check if customerInfo is defined and not null
+    if (customerInfo && typeof customerInfo === 'object' && Object.keys(customerInfo).length !== 0) {
       // Check if customer already exists
       const existingCustomer = await db.query(
         'SELECT * FROM public."Customers" WHERE "Customer_id"=$1',
@@ -50,31 +56,27 @@ router.post('/', async (req, res) => {
       );
   
       if (existingCustomer.rowCount > 0) {
-        
         // Update existing customer
         await db.query(
           'UPDATE public."Customers" SET "First_Name"=$1, "Last_Name"=$2, "Email"=$3, "Address"=$4 WHERE "Customer_id"=$5',
-          [customerInfo.firstName, customerInfo.lastName, customerInfo.email, customerInfo.address, customerId]  
+          [customerInfo.firstName, customerInfo.lastName, customerInfo.email, customerInfo.address, customerId]
         );
   
       } else {
-  
-        // Insert new customer 
+        // Insert new customer
         await db.query(
           'INSERT INTO public."Customers" ("Customer_id", "First_Name", "Last_Name", "Email", "Address") VALUES ($1, $2, $3, $4, $5)',
           [customerId, customerInfo.firstName, customerInfo.lastName, customerInfo.email, customerInfo.address]
         );
-  
       }
-  
-      res.status(201).json({order: orderResult.rows[0]});
-  
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({error: 'Internal server error'});
     }
-  
-  });
+
+    res.status(201).json({ order: orderResult.rows[0] });
+  } catch (err) {
+    console.error('Error creating order:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // Update a specific order
 router.put('/:order_id', async (req, res) => {

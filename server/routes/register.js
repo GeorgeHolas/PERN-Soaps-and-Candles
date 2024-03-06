@@ -1,4 +1,3 @@
-// Register.js
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const { Pool } = require('pg');
@@ -26,8 +25,10 @@ router.post('/register', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0]; // Get YYYY-MM-DD format
 
-    const newUser = await pool.query('INSERT INTO public."Customers" (username, password) VALUES ($1, $2) RETURNING *', [username, hashedPassword]);
+    const newUser = await pool.query('INSERT INTO public."Customers" (username, password, "Created") VALUES ($1, $2, $3) RETURNING *', [username, hashedPassword, formattedDate]);
 
     res.status(201).json(newUser.rows[0]);
   } catch (error) {

@@ -19,7 +19,7 @@ function NavigationBar({ cartItems }) {
       const timeoutId = setTimeout(() => {
         setShowLogoutMessage(false);
         clearLogoutMessage();
-      }, 3000);
+      }, 1000);
 
       return () => clearTimeout(timeoutId);
     }

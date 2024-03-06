@@ -18,6 +18,7 @@ function App() {
 
   // For testing, replace this with actual customer ID
   const customerId = user ? user.customerId : ""; // Assuming user has customerId
+  const username = user ? user.username : ""; // Assuming user has username
 
   // Add item to a cart
   const addToCart = (newItem) => {
@@ -68,6 +69,7 @@ function App() {
           cartItems={cartItems}
           onLogout={handleLogout}
           isAuthenticated={isAuthenticated}
+          username={username} // Pass the username to NavigationBar
         />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,5 +1,3 @@
-// Checkout.js
-
 import React, { useState, useEffect } from "react";
 import { Elements, useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -7,7 +5,6 @@ import PaymentMessage from "../PaymentMessage/paymentMessage";
 import { useAuth } from "../../routes/AuthContext"; 
 import styles from "./checkout.module.css";
 
-// Define the CheckoutForm component
 const CheckoutForm = ({ cartItems, customerId }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -16,14 +13,13 @@ const CheckoutForm = ({ cartItems, customerId }) => {
   const [processingPayment, setProcessingPayment] = useState(false);
   const [showPaymentMessage, setShowPaymentMessage] = useState(false);
   const [paymentSuccessMessage, setPaymentSuccessMessage] = useState("");
-
-  // Additional state for customer information
   const [customerInfo, setCustomerInfo] = useState({
     firstName: "",
     lastName: "",
     address: "",
     email: "",
   });
+  const [skipCustomerInfo, setSkipCustomerInfo] = useState(false); 
 
   const handleInputChange = (e) => {
     setCustomerInfo({
@@ -40,61 +36,60 @@ const CheckoutForm = ({ cartItems, customerId }) => {
     }
   };
 
-  console.log("User from login:", { username: 'testuser20', password: 'testuser20' });
-
   const handlePayment = async (e) => {
     e.preventDefault();
-
-    console.log("User in handlePayment:", customerId);
-
-    // Check if all required customer information is filled
-    if (
-      !customerInfo.firstName ||
-      !customerInfo.lastName ||
-      !customerInfo.address ||
-      !customerInfo.email
-    ) {
-      setPaymentError("Please fill in all customer information before proceeding to payment.");
-      return;
+  
+    if (!skipCustomerInfo) {
+      // Check if any of the required fields are empty
+      if (!customerInfo.firstName || !customerInfo.lastName || !customerInfo.address || !customerInfo.email) {
+        setPaymentError("Please fill in all customer information before proceeding to payment.");
+        return;
+      }
     }
-
+  
     setProcessingPayment(true);
-
-      try {
-      // Create a PaymentMethod from the CardElement
+  
+    try {
       const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: 'card',
         card: elements.getElement(CardElement),
       });
-;
-
+  
       if (error) {
         setPaymentError(error.message);
-      } else {    
-
+      } else {
         const response = await fetch("http://localhost:4000/orders", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            customerId, // Check if user is defined before accessing properties
+            customerId,
             paymentMethodId: paymentMethod.id,
             total: calculateTotalAmount(cartItems),
             status: "Complete",
             created: new Date(),
-            customerInfo: { ...customerInfo }, // Include customer information in the request
+            // Only include customerInfo if skipCustomerInfo is false
+            customerInfo: skipCustomerInfo ? {} : { ...customerInfo },
           }),
         });
-
+  
         if (response.ok) {
           setPaymentError(null);
           setPaymentSuccessMessage("Payment was successful!");
           setShowPaymentMessage(true);
-
+  
+          // Clear customer info after successful payment
+          setCustomerInfo({
+            firstName: "",
+            lastName: "",
+            address: "",
+            email: "",
+          });
+  
           setTimeout(() => {
             window.location.href = "http://localhost:3000/";
-          }, 3000);
+          }, 1000);
         } else {
           console.error("Payment failed");
         }
@@ -106,7 +101,7 @@ const CheckoutForm = ({ cartItems, customerId }) => {
       setProcessingPayment(false);
     }
   };
-
+  
   const calculateTotalAmount = (items) => {
     return items.reduce(
       (total, item) => total + (item.Price || 0) * (item.quantity || 1),
@@ -120,54 +115,66 @@ const CheckoutForm = ({ cartItems, customerId }) => {
     <div className={styles.checkoutContainer}>
       <h3>Checkout</h3>
       <hr />
-      <div>
-        <h2>Customer Information</h2>
-        <form className={styles.customerInfoForm}>
-          <label>
-            First Name:
-            <input
-              type="text"
-              name="firstName"
-              value={customerInfo.firstName}
-              onChange={handleInputChange}
-              autoComplete="given-name"
-              required
-            />
-          </label>
-          <label>
-            Last Name:
-            <input
-              type="text"
-              name="lastName"
-              value={customerInfo.lastName}
-              onChange={handleInputChange}
-              autoComplete="family-name"
-              required
-            />
-          </label>
-          <label>
-            Address:
-            <textarea
-              name="address"
-              value={customerInfo.address}
-              onChange={handleInputChange}
-              rows="4"
-              autoComplete="street-address"
-              required
-            ></textarea>
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={customerInfo.email}
-              onChange={handleInputChange}
-              autoComplete="email"
-              required
-            />
-          </label>
-        </form>
+      {!skipCustomerInfo && (
+        <div>
+          <h2>Customer Information</h2>
+          <form className={styles.customerInfoForm}>
+            <label>
+              First Name:
+              <input
+                type="text"
+                name="firstName"
+                value={customerInfo.firstName}
+                onChange={handleInputChange}
+                autoComplete="given-name"
+                required
+              />
+            </label>
+            <label>
+              Last Name:
+              <input
+                type="text"
+                name="lastName"
+                value={customerInfo.lastName}
+                onChange={handleInputChange}
+                autoComplete="family-name"
+                required
+              />
+            </label>
+            <label>
+              Address:
+              <textarea
+                name="address"
+                value={customerInfo.address}
+                onChange={handleInputChange}
+                rows="4"
+                autoComplete="street-address"
+                required
+              ></textarea>
+            </label>
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={customerInfo.email}
+                onChange={handleInputChange}
+                autoComplete="email"
+                required
+              />
+            </label>
+          </form>
+        </div>
+      )}
+      <div className={styles.checkboxContainer}>
+        <label>
+          <input
+            type="checkbox"
+            checked={skipCustomerInfo}
+            onChange={() => setSkipCustomerInfo(!skipCustomerInfo)}
+          />
+          <span className={styles.checkboxText}>Use previously saved customer information</span>
+        </label>
       </div>
       <hr />
       <ul>
@@ -198,7 +205,6 @@ const CheckoutForm = ({ cartItems, customerId }) => {
 
 const Checkout = ({ cartItems }) => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
-
   const { getUser, getCustomerId } = useAuth();
   const user = getUser();
   const customerId = getCustomerId();
@@ -206,11 +212,11 @@ const Checkout = ({ cartItems }) => {
   useEffect(() => {
     console.log("User from login:", user);
     console.log("Customer_id from login:", customerId);
-    // Here you can use customerId to make the order
+    if (localStorage.getItem("customerInfoFilled")) {
+      // Customer info has been filled before
+      // You can choose to hide the customer info form here
+    }
   }, [user, customerId]);
-
-  // Set mock data 
-  //localStorage.setItem("user", JSON.stringify({id: 1})) 
 
   return (
     <Elements stripe={stripePromise}>

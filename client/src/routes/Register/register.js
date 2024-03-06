@@ -19,7 +19,6 @@ function Registration() {
 
   const onSubmit = async (values) => {
     try {
-      // Log the values to check if they are correct
       console.log("Form values:", values);
       const response = await fetch("http://localhost:4000/register", {
         method: "POST",
@@ -28,16 +27,15 @@ function Registration() {
         },
         body: JSON.stringify(values),
       });
-
+  
       if (response.ok) {
-        // Registration successful, log in the user
-        login(response.data);
+        const data = await response.json();
+        login(data); 
         console.log("Registration successful!");
-        navigate("/products");
+        navigate("/login");
       } else {
-        const errorData = await response.json();
-        // Handle registration errors
-        console.error("Registration error:", errorData.message);
+        const errorResponse = await response.json();
+        console.error("Registration error:", errorResponse);
       }
     } catch (error) {
       console.error("Registration error:", error);
