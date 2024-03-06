@@ -1,4 +1,3 @@
-// Cart.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Elements } from "react-stripe-elements";
@@ -33,65 +32,83 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
     navigate("/checkout");
   };
 
+  // Check if cart is empty
+  const isCartEmpty = cartItems.length === 0;
+
+  // Check if total is less than $30
+  const isTotalLessThan30 = calculateCartTotal() < 30;
+
   return (
     <div className={styles.cartContainer}>
       <div className={styles.cart}>
         <h2>Your Cart</h2>
         <div className={styles.productContainer}>
-          {cartItems.map((item, index) => (
-            <div
-              key={`${item.Product_id}-${index}`}
-              className={styles.cartItem}
-            >
-              <div className={styles.productInfo}>
-                <img
-                  className={styles.productImg}
-                  src={process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`}
-                  alt={item.Name}
-                />
-                <span className={styles.productName}>{item.Name}</span>
-                <span className={styles.productPrice}>${item.Price}</span>
-              </div>
-              <div className={styles.quantityContainer}>
-                <button
-                  className={styles.quantityBtn}
-                  onClick={() =>
-                    updateQuantity(item.Product_id, (item.quantity || 1) - 1)
-                  }
-                >
-                  -
-                </button>
-                <span className={styles.quantity}>{item.quantity || 1}</span>
-                <button
-                  className={styles.quantityBtn}
-                  onClick={() =>
-                    updateQuantity(item.Product_id, (item.quantity || 1) + 1)
-                  }
-                >
-                  +
-                </button>
-              </div>
-              <button
-                className={styles.removeBtn}
-                onClick={() => handleRemove(item.Product_id)}
+          {isCartEmpty ? (
+            <div className={styles.emptyCartMessage}>Cart is empty!</div>
+          ) : (
+            cartItems.map((item, index) => (
+              <div
+                key={`${item.Product_id}-${index}`}
+                className={styles.cartItem}
               >
-                Remove
-              </button>
-            </div>
-          ))}
+                <div className={styles.productInfo}>
+                  <img
+                    className={styles.productImg}
+                    src={process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`}
+                    alt={item.Name}
+                  />
+                  <span className={styles.productName}>{item.Name}</span>
+                  <span className={styles.productPrice}>${item.Price}</span>
+                </div>
+                <div className={styles.quantityContainer}>
+                  <button
+                    className={styles.quantityBtn}
+                    onClick={() =>
+                      updateQuantity(item.Product_id, (item.quantity || 1) - 1)
+                    }
+                  >
+                    -
+                  </button>
+                  <span className={styles.quantity}>{item.quantity || 1}</span>
+                  <button
+                    className={styles.quantityBtn}
+                    onClick={() =>
+                      updateQuantity(item.Product_id, (item.quantity || 1) + 1)
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  className={styles.removeBtn}
+                  onClick={() => handleRemove(item.Product_id)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))
+          )}
         </div>
-        <div className={styles.cartTotal}>
-          <span>Total</span>
-          <span className={styles.calculateTotal}>${calculateCartTotal()}</span>
-        </div>
+        {!isCartEmpty && (
+          <div className={styles.cartTotal}>
+            <span>Total</span>
+            <span className={styles.calculateTotal}>${calculateCartTotal()}</span>
+          </div>
+        )}
+        {!isCartEmpty && (
+          <button
+            className={styles.checkoutBtn}
+            onClick={handleCheckout}
+            disabled={isTotalLessThan30}
+          >
+            {isTotalLessThan30 ? "Total must be $30 or more" : "Checkout"}
+          </button>
+        )}
         {showCheckout && (
           <Elements>
             <Checkout cartItems={cartItems} setShowCheckout={setShowCheckout} />
           </Elements>
         )}
-        <button className={styles.checkoutBtn} onClick={handleCheckout}>
-          Checkout
-        </button>
       </div>
     </div>
   );
