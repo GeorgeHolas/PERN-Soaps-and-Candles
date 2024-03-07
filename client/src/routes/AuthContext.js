@@ -29,9 +29,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("customerId", user.Customer_id);
   
     setLogoutMessage("Login successful. Welcome!");
-  
-    console.log('User', user);
-    console.log('Customer Id', user.Customer_id);
   }
   
 // Get user
