@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 
     // Insert order information into Orders table
     const orderResult = await db.query(
-      'INSERT INTO public."Orders" ("Customer_id", "Order_id", "Total", "Status", "Created") VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP) RETURNING *',
+      'INSERT INTO public."Orders" ("Customer_id", "Order_id", "Total", "Status", "Created") VALUES ($1, $2, $3, $4, DATE_TRUNC(\'second\', CURRENT_TIMESTAMP)) RETURNING *',
       [customerId, orderId, total, status]
     );
 
