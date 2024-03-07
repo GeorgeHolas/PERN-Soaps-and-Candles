@@ -108,14 +108,14 @@ const Products = () => {
         </button>
         {showDropdown && (
           <div className={styles.dropdownContent}>
-            <div onClick={() => handleTypeChange("")}>
-              All
-            </div>
             <div onClick={() => handleTypeChange("soap")}>
               Soaps
             </div>
             <div onClick={() => handleTypeChange("candle")}>
               Candles
+            </div>
+            <div onClick={() => handleTypeChange("")}>
+              All
             </div>
           </div>
         )}
