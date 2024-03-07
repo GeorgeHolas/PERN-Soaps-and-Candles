@@ -1,3 +1,9 @@
+/**
+ * Products page component that displays a list of products.
+ * Allows filtering products by type. Fetches product data from API.
+ * Contains ProductList and Product components to display products.
+ */
+// products.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./products.module.css";
@@ -38,7 +44,7 @@ const ProductList = ({ title, type }) => {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch products');
+          throw new Error("Failed to fetch products");
         }
         return response.json();
       })
@@ -46,11 +52,11 @@ const ProductList = ({ title, type }) => {
         if (Array.isArray(data)) {
           setProducts(data);
         } else {
-          setError('Invalid data received from server');
+          setError("Invalid data received from server");
         }
       })
       .catch((error) => {
-        setError('Failed to fetch products');
+        setError("Failed to fetch products");
       });
   }, [type]);
 
@@ -108,15 +114,9 @@ const Products = () => {
         </button>
         {showDropdown && (
           <div className={styles.dropdownContent}>
-            <div onClick={() => handleTypeChange("soap")}>
-              Soaps
-            </div>
-            <div onClick={() => handleTypeChange("candle")}>
-              Candles
-            </div>
-            <div onClick={() => handleTypeChange("")}>
-              All
-            </div>
+            <div onClick={() => handleTypeChange("soap")}>Soaps</div>
+            <div onClick={() => handleTypeChange("candle")}>Candles</div>
+            <div onClick={() => handleTypeChange("")}>All</div>
           </div>
         )}
       </div>

@@ -1,3 +1,11 @@
+/**
+ * Home component displays the home page content.
+ *
+ * Renders intro video, history/about text sections, product images,
+ * and Footer component.
+ *
+ * Has useEffect hook to fade in images on scroll using CSS opacity.
+ */
 // Home.js
 import React, { useEffect } from "react";
 import styles from "./home.module.css";

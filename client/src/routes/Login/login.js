@@ -1,3 +1,12 @@
+/**
+ * Login component.
+ *
+ * Renders a login form with username and password fields.
+ * Validates input using react-hook-form.
+ * On submit, calls login API and handles response.
+ * If login succeeds, redirects to /products route.
+ */
+// login.js
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../AuthContext";
@@ -27,22 +36,31 @@ function Login() {
       if (response.ok) {
         const responseData = await response.json();
         console.log("Login API Response Data:", responseData);
-        
+
         if (responseData.Customer_id) {
-          login(responseData); 
+          login(responseData);
           navigate("/products");
         } else {
           console.error("Login API Error: Customer_id missing in response.");
-          setError("username", { type: "manual", message: "Login failed. Please try again." });
+          setError("username", {
+            type: "manual",
+            message: "Login failed. Please try again.",
+          });
         }
       } else {
         const errorData = await response.json();
         console.error("Login API Error:", errorData);
-        setError("username", { type: "manual", message: errorData.message || "Login failed. Please try again." });
+        setError("username", {
+          type: "manual",
+          message: errorData.message || "Login failed. Please try again.",
+        });
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("username", { type: "manual", message: "Login failed. Please try again." });
+      setError("username", {
+        type: "manual",
+        message: "Login failed. Please try again.",
+      });
     }
   };
 

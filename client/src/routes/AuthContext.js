@@ -1,3 +1,9 @@
+/**
+ * AuthContext provides authentication state and functions via React Context API.
+ * Maintains user object, customer ID, and login/logout functions in context.
+ * Persists user authentication in localStorage.
+ * Provides StripeProvider component if Stripe API key is available.
+ */
 // AuthContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 import { StripeProvider } from "react-stripe-elements";
@@ -16,35 +22,34 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (user) => {
+    // Update to expect user object
+    setUser(user);
 
-    // Update to expect user object 
-    setUser(user);  
-  
     // Get Customer_id from user object
     setCustomerId(user.Customer_id);
-  
+
     localStorage.setItem("user", JSON.stringify(user));
-  
+
     // Store user object in localStorage
     localStorage.setItem("customerId", user.Customer_id);
-  
-    setLogoutMessage("Login successful. Welcome!");
-  }
-  
-// Get user
-const getUser = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = localStorage.getItem("userId"); // This should be "customerId" instead of "userId"
-  console.log(localStorage.getItem("user"));
-  console.log(localStorage.getItem("userId"));
-  if (userId) {
-    return user; 
-  }
-  return null;
-}
 
-const getCustomerId = () => localStorage.getItem('customerId');
-  
+    setLogoutMessage("Login successful. Welcome!");
+  };
+
+  // Get user
+  const getUser = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = localStorage.getItem("userId"); // This should be "customerId" instead of "userId"
+    console.log(localStorage.getItem("user"));
+    console.log(localStorage.getItem("userId"));
+    if (userId) {
+      return user;
+    }
+    return null;
+  };
+
+  const getCustomerId = () => localStorage.getItem("customerId");
+
   // Logout
   const logout = () => {
     setUser(null);

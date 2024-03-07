@@ -1,3 +1,11 @@
+/**
+ * Register component handles user registration.
+ *
+ * Uses Formik for form validation and submission.
+ * Handles registration request to backend and redirects to login on success.
+ * Displays error messages on failure.
+ */
+// register.js
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -15,7 +23,7 @@ const validationSchema = Yup.object().shape({
 function Registration() {
   useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const onSubmit = async (values) => {
@@ -33,17 +41,17 @@ function Registration() {
 
       if (response.ok) {
         console.log("Registration successful!");
-        setError(null); 
-        setRegistrationSuccess(true); 
+        setError(null);
+        setRegistrationSuccess(true);
         setTimeout(() => {
           navigate("/login");
-        }, 2000); 
+        }, 2000);
       } else {
-        setError(data.error); 
+        setError(data.error);
       }
     } catch (error) {
       console.error("Registration error:", error);
-      setError("Registration failed. Please try again."); 
+      setError("Registration failed. Please try again.");
     }
   };
 
@@ -80,7 +88,7 @@ function Registration() {
             />
             <ErrorMessage name="password" component="span" />
 
-            {error && <div className={styles.error}>{error}</div>} 
+            {error && <div className={styles.error}>{error}</div>}
 
             {registrationSuccess && (
               <div className={styles.success}>Registration successful!</div>

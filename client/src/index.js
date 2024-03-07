@@ -1,3 +1,11 @@
+/**
+ * Renders the React app into the DOM.
+ * - Imports React and other dependencies.
+ * - Gets reference to root DOM element.
+ * - Gets Stripe API key from env var.
+ * - Wraps app in context providers.
+ * - Renders app wrapped in context providers into root element.
+ */
 // index.js
 import React from "react";
 import { createRoot } from "react-dom/client";

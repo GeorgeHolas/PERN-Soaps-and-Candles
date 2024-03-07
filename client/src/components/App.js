@@ -1,3 +1,9 @@
+/**
+ * App component is the root component that renders the entire application.
+ *
+ * It initializes React Router and defines all the routes. Also manages global state like
+ * authentication and cart items.
+ */
 // App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -15,11 +21,11 @@ import { AuthProvider, useAuth } from "../routes/AuthContext";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  const { isAuthenticated, logout, user } = useAuth(); 
+  const { isAuthenticated, logout, user } = useAuth();
 
   // For testing, replace this with actual customer ID
-  const customerId = user ? user.customerId : ""; 
-  const username = user ? user.username : ""; 
+  const customerId = user ? user.customerId : "";
+  const username = user ? user.username : "";
 
   // Add item to a cart
   const addToCart = (newItem) => {
@@ -70,7 +76,7 @@ function App() {
           cartItems={cartItems}
           onLogout={handleLogout}
           isAuthenticated={isAuthenticated}
-          username={username} 
+          username={username}
         />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -107,12 +113,20 @@ function App() {
           <Route
             path="/checkout"
             element={
-              <PrivateRoute element={<Checkout cartItems={cartItems} customerId={customerId} />} />
+              <PrivateRoute
+                element={
+                  <Checkout cartItems={cartItems} customerId={customerId} />
+                }
+              />
             }
           />
           <Route
             path="/orders"
-            element={<PrivateRoute element={<OrderHistory customerId={customerId} />} />}
+            element={
+              <PrivateRoute
+                element={<OrderHistory customerId={customerId} />}
+              />
+            }
           />
         </Routes>
       </Router>

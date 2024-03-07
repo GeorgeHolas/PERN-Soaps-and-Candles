@@ -1,3 +1,10 @@
+/**
+ * Cart component displays the user's shopping cart.
+ * Allows user to view cart items, update quantities, remove items,
+ * and proceed to checkout when cart total is >=$30.
+ * Uses React hooks for state management.
+ */
+// cart.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Elements } from "react-stripe-elements";
@@ -54,7 +61,9 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
                 <div className={styles.productInfo}>
                   <img
                     className={styles.productImg}
-                    src={process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`}
+                    src={
+                      process.env.REACT_APP_IMAGE_PATH + `/${item.imageName}`
+                    }
                     alt={item.Name}
                   />
                   <span className={styles.productName}>{item.Name}</span>
@@ -92,7 +101,9 @@ const Cart = ({ cartItems, removeFromCart, updateQuantity }) => {
         {!isCartEmpty && (
           <div className={styles.cartTotal}>
             <span>Total</span>
-            <span className={styles.calculateTotal}>${calculateCartTotal()}</span>
+            <span className={styles.calculateTotal}>
+              ${calculateCartTotal()}
+            </span>
           </div>
         )}
         {!isCartEmpty && (
