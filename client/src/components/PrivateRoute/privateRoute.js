@@ -1,3 +1,9 @@
+/**
+ * PrivateRoute component that checks if user is authenticated
+ * and redirects to login if not. If authenticated, renders
+ * the protected component. Uses AuthContext to check
+ * authentication status.
+ */
 // PrivateRoute.js
 import React from "react";
 import { Navigate } from "react-router-dom";

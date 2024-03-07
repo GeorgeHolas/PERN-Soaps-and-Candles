@@ -1,11 +1,18 @@
+/**
+ * Fetches order history for authenticated user and displays in UI.
+ * Uses AuthContext hook for auth.
+ * Fetches orders from API based on customer ID.
+ * Displays order details and provides button to return to home page.
+ */
+// orderHistory.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./orderHistory.module.css";
-import { useAuth } from "../../routes/AuthContext"; // Import useAuth hook
+import { useAuth } from "../../routes/AuthContext";
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
-  const { getCustomerId } = useAuth(); // Use useAuth hook to get customerId
+  const { getCustomerId } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,8 +22,7 @@ const OrderHistory = () => {
       return;
     }
 
-    const customerId = getCustomerId(); // Get customerId from useAuth
-
+    const customerId = getCustomerId();
     fetch(`http://localhost:4000/orders?customerId=${customerId}`, {
       method: "GET",
       headers: {

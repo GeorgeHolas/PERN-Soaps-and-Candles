@@ -1,14 +1,25 @@
+/**
+ * Checkout component handles collecting customer information,
+ * payment details, and processing the payment. Uses Stripe
+ * Elements for card payment.
+ */
+// checkout.js
 import React, { useState, useEffect } from "react";
-import { Elements, useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
+import {
+  Elements,
+  useElements,
+  useStripe,
+  CardElement,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentMessage from "../PaymentMessage/paymentMessage";
-import { useAuth } from "../../routes/AuthContext"; 
+import { useAuth } from "../../routes/AuthContext";
 import styles from "./checkout.module.css";
 
 const CheckoutForm = ({ cartItems, customerId }) => {
   const stripe = useStripe();
   const elements = useElements();
-  
+
   const [paymentError, setPaymentError] = useState(null);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [showPaymentMessage, setShowPaymentMessage] = useState(false);
@@ -19,7 +30,7 @@ const CheckoutForm = ({ cartItems, customerId }) => {
     address: "",
     email: "",
   });
-  const [skipCustomerInfo, setSkipCustomerInfo] = useState(false); 
+  const [skipCustomerInfo, setSkipCustomerInfo] = useState(false);
 
   const handleInputChange = (e) => {
     setCustomerInfo({
@@ -38,23 +49,29 @@ const CheckoutForm = ({ cartItems, customerId }) => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-  
+
     if (!skipCustomerInfo) {
-      // Check if any of the required fields are empty
-      if (!customerInfo.firstName || !customerInfo.lastName || !customerInfo.address || !customerInfo.email) {
-        setPaymentError("Please fill in all customer information before proceeding to payment.");
+      if (
+        !customerInfo.firstName ||
+        !customerInfo.lastName ||
+        !customerInfo.address ||
+        !customerInfo.email
+      ) {
+        setPaymentError(
+          "Please fill in all customer information before proceeding to payment."
+        );
         return;
       }
     }
-  
+
     setProcessingPayment(true);
-  
+
     try {
       const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
+        type: "card",
         card: elements.getElement(CardElement),
       });
-  
+
       if (error) {
         setPaymentError(error.message);
       } else {
@@ -69,16 +86,15 @@ const CheckoutForm = ({ cartItems, customerId }) => {
             total: calculateTotalAmount(cartItems),
             status: "Complete",
             created: new Date(),
-            // Only include customerInfo if skipCustomerInfo is false
             customerInfo: skipCustomerInfo ? {} : { ...customerInfo },
           }),
         });
-  
+
         if (response.ok) {
           setPaymentError(null);
           setPaymentSuccessMessage("Payment was successful!");
           setShowPaymentMessage(true);
-  
+
           // Clear customer info after successful payment
           setCustomerInfo({
             firstName: "",
@@ -86,7 +102,7 @@ const CheckoutForm = ({ cartItems, customerId }) => {
             address: "",
             email: "",
           });
-  
+
           setTimeout(() => {
             window.location.href = "http://localhost:3000/";
           }, 1000);
@@ -101,7 +117,7 @@ const CheckoutForm = ({ cartItems, customerId }) => {
       setProcessingPayment(false);
     }
   };
-  
+
   const calculateTotalAmount = (items) => {
     return items.reduce(
       (total, item) => total + (item.Price || 0) * (item.quantity || 1),
@@ -173,7 +189,9 @@ const CheckoutForm = ({ cartItems, customerId }) => {
             checked={skipCustomerInfo}
             onChange={() => setSkipCustomerInfo(!skipCustomerInfo)}
           />
-          <span className={styles.checkboxText}>Use previously saved customer information</span>
+          <span className={styles.checkboxText}>
+            Use previously saved customer information
+          </span>
         </label>
       </div>
       <hr />
