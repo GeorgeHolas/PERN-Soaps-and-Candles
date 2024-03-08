@@ -1,33 +1,33 @@
 /**
- * Renders the React app into the DOM.
- * - Imports React and other dependencies.
- * - Gets reference to root DOM element.
- * - Gets Stripe API key from env var.
- * - Wraps app in context providers.
- * - Renders app wrapped in context providers into root element.
+ * Renders the React application.
+ *
+ * Imports React with Suspense for lazy loading.
+ * Provides AuthProvider and StripeProvider contexts.
+ * Renders App component wrapped in Suspense fallback.
+ * Renders to DOM root element.
  */
 // index.js
-import React from "react";
+import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { Elements } from "react-stripe-elements";
-import App from "./components/App";
 import { AuthProvider } from "./routes/AuthContext";
+import StripeProvider from "./routes/StripeProvider";
 import "./index.css";
 
-// Create a root element that will be rendered
-const root = document.getElementById("root");
-const reactRoot = createRoot(root);
+const App = React.lazy(() => import("./components/App"));
 
-// Stripe test key
-const stripeKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
 
-// Render the app
-reactRoot.render(
+const stripeKey = process.env.REACT_APP_STRIPE_KEY;
+
+root.render(
   <React.StrictMode>
-    <AuthProvider stripeKey={stripeKey}>
-      <Elements>
-        <App />
-      </Elements>
+    <AuthProvider>
+      <StripeProvider stripeKey={stripeKey}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <App />
+        </Suspense>
+      </StripeProvider>
     </AuthProvider>
   </React.StrictMode>
 );
