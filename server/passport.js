@@ -1,8 +1,12 @@
+/**
+ * Configures passport.js with a local authentication strategy using bcrypt and PostgreSQL.
+ * Serializes user into the session and deserializes user from the session for authenticated requests.
+ */
 // passport.js
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
-const { Pool } = require('pg');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcrypt");
+const { Pool } = require("pg");
 
 const pool = new Pool({
   user: process.env.PGUSER,
@@ -12,42 +16,53 @@ const pool = new Pool({
   port: process.env.PGPORT,
 });
 
-passport.use(new LocalStrategy(async (username, password, done) => {
-  try {
-    const user = await pool.query('SELECT * FROM public."Customers" WHERE username = $1', [username]);
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await pool.query(
+        'SELECT * FROM public."Customers" WHERE username = $1',
+        [username]
+      );
 
-    if (user.rows.length === 0) {
-      return done(null, false, { message: 'Incorrect username.' });
+      if (user.rows.length === 0) {
+        return done(null, false, { message: "Incorrect username." });
+      }
+
+      const passwordMatch = await bcrypt.compare(
+        password,
+        user.rows[0].password
+      );
+
+      if (!passwordMatch) {
+        return done(null, false, { message: "Incorrect password." });
+      }
+
+      return done(null, user.rows[0]);
+    } catch (error) {
+      return done(error);
     }
-
-    const passwordMatch = await bcrypt.compare(password, user.rows[0].password);
-
-    if (!passwordMatch) {
-      return done(null, false, { message: 'Incorrect password.' });
-    }
-
-    return done(null, user.rows[0]);
-  } catch (error) {
-    return done(error);
-  }
-}));
+  })
+);
 
 passport.serializeUser((user, done) => {
-  done(null, user.Customer_id);  
+  done(null, user.Customer_id);
 });
 
 passport.deserializeUser(async (Customer_id, done) => {
   try {
-    const user = await pool.query('SELECT * FROM public."Customers" WHERE "Customer_id" = $1', [Customer_id]);
-    
+    const user = await pool.query(
+      'SELECT * FROM public."Customers" WHERE "Customer_id" = $1',
+      [Customer_id]
+    );
+
     if (user.rows.length === 0) {
-      console.log('User not found.');
-      return done(null, false); 
+      console.log("User not found.");
+      return done(null, false);
     }
 
     done(null, user.rows[0]);
   } catch (error) {
-    console.error('Error during deserialization:', error);
+    console.error("Error during deserialization:", error);
     done(error);
   }
 });

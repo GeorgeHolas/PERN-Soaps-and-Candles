@@ -1,3 +1,15 @@
+/**
+ * Cart router handles CRUD operations for cart items.
+ *
+ * Uses middleware to validate input data.
+ *
+ * Routes include:
+ * - GET / - Get all cart items
+ * - GET /:id - Get cart item by ID
+ * - POST / - Create new cart item
+ * - PUT /:id - Update cart item quantity
+ * - DELETE /:id - Delete cart item
+ */
 // cart.js
 const express = require("express");
 const router = express.Router();
@@ -13,7 +25,7 @@ const validateCartInput = (req, res, next) => {
 
 // Use middleware
 router.use(express.json());
-router.use(validateCartInput); 
+router.use(validateCartInput);
 
 // Get all items in the cart
 router.get("/", async (req, res) => {

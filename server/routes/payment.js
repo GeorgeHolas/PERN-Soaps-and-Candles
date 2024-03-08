@@ -1,15 +1,26 @@
+/**
+ * Creates a Stripe payment intent and returns the client secret.
+ *
+ * POST /intents
+ *
+ * @param {Object} req - Express request object
+ * @param {number} req.body.amount - Payment amount in cents
+ * @param {string} req.body.currency - Payment currency
+ * @param {Object} res - Express response object
+ * @returns {Object} res - Response with Stripe client secret
+ */
 // Payment.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Payment function
-router.post('/intents', async (req, res) => {
+router.post("/intents", async (req, res) => {
   try {
     // Create intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: req.body.amount,
-      currency: 'usd',
+      currency: "usd",
       automatic_payment_methods: {
         enabled: true,
       },
@@ -19,7 +30,7 @@ router.post('/intents', async (req, res) => {
     res.json({ clientSecret: paymentIntent.client_secret });
   } catch (e) {
     console.error(e);
-    res.status(400).json({ error: 'Error creating payment' });
+    res.status(400).json({ error: "Error creating payment" });
   }
 });
 

@@ -1,14 +1,25 @@
+/**
+ * User routes module.
+ *
+ * Defines routes for managing user accounts. Includes routes for:
+ * - Getting a list of all users
+ * - Getting a specific user by ID
+ * - Updating a user's information by ID
+ *
+ * Uses an Express router and interfaces with the database.
+ * Requires authentication middleware.
+ */
 // user.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../db/db');
-const authenticate = require('../routes/auth')
+const db = require("../db/db");
+const authenticate = require("../routes/auth");
 
 router.use(authenticate);
 router.use(express.json());
 
 // GET /users
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     // Retrieve a list of users
     const getUsersQuery = 'SELECT * FROM public."Customers"';
@@ -16,33 +27,34 @@ router.get('/', async (req, res) => {
 
     res.status(200).json(users.rows);
   } catch (error) {
-    console.error('Error retrieving users:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error retrieving users:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // GET /users/:userId
-router.get('/:userId', async (req, res) => {
+router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
     // Retrieve a specific user by ID
-    const getUserQuery = 'SELECT * FROM public."Customers" WHERE "Customer_id" = $1';
+    const getUserQuery =
+      'SELECT * FROM public."Customers" WHERE "Customer_id" = $1';
     const user = await db.query(getUserQuery, [userId]);
 
     if (user.rows.length === 0) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     } else {
       res.status(200).json(user.rows[0]);
     }
   } catch (error) {
-    console.error('Error retrieving user:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error retrieving user:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // PUT /users/:userId
-router.put('/:userId', async (req, res) => {
+router.put("/:userId", async (req, res) => {
   const { userId } = req.params;
   const { firstName, lastName, address, email } = req.body;
 
@@ -55,16 +67,22 @@ router.put('/:userId', async (req, res) => {
       RETURNING *;
     `;
 
-    const updatedUser = await db.query(updateUserQuery, [firstName, lastName, address, email, userId]);
+    const updatedUser = await db.query(updateUserQuery, [
+      firstName,
+      lastName,
+      address,
+      email,
+      userId,
+    ]);
 
     if (updatedUser.rows.length === 0) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     } else {
       res.status(200).json(updatedUser.rows[0]);
     }
   } catch (error) {
-    console.error('Error updating user:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
