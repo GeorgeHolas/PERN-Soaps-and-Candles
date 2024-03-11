@@ -1,12 +1,11 @@
 /**
  * AuthContext provides authentication state and functions via React Context API.
  * Maintains user object, customer ID, and login/logout functions in context.
- * Persists user authentication in localStorage.
- * Provides StripeProvider component if Stripe API key is available.
+ * Also provides access to Stripe publishable key for StripeProvider.
  */
 // AuthContext.js
-import { createContext, useContext, useState, useEffect } from "react";
-import { StripeProvider } from "react-stripe-elements";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { StripeProvider } from "./StripeContext";
 
 const AuthContext = createContext();
 
@@ -73,10 +72,11 @@ export const AuthProvider = ({ children }) => {
         logoutMessage,
         clearLogoutMessage,
         isAuthenticated: !!user,
+        stripeKey, // Add stripeKey to the context
       }}
     >
       {stripeKey && (
-        <StripeProvider apiKey={stripeKey}>{children}</StripeProvider>
+        <StripeProvider stripeKey={stripeKey}>{children}</StripeProvider>
       )}
     </AuthContext.Provider>
   );

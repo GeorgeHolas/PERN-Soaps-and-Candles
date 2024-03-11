@@ -1,16 +1,13 @@
 /**
- * Renders the React application.
- *
- * Imports React with Suspense for lazy loading.
- * Provides AuthProvider and StripeProvider contexts.
- * Renders App component wrapped in Suspense fallback.
- * Renders to DOM root element.
+ * Imports and configures React DOM and React Suspense.
+ * Wraps app in context providers for authentication and Stripe.
+ * Renders Suspense boundary and App component in React root.
  */
 // index.js
 import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { AuthProvider } from "./routes/AuthContext";
-import StripeProvider from "./routes/StripeProvider";
+import { StripeProvider } from "./routes/StripeContext"; // Update import
 import "./index.css";
 
 const App = React.lazy(() => import("./components/App"));
@@ -24,6 +21,8 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <StripeProvider stripeKey={stripeKey}>
+        {" "}
+        {/* Pass stripeKey */}
         <Suspense fallback={<div>Loading...</div>}>
           <App />
         </Suspense>
