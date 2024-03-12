@@ -21,7 +21,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <StripeProvider stripeKey={stripeKey}>
-        {" "}
+        {process.env.REACT_APP_STRIPE_KEY}
         {/* Pass stripeKey */}
         <Suspense fallback={<div>Loading...</div>}>
           <App />

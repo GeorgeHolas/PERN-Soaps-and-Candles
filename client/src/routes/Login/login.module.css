@@ -2,10 +2,11 @@
 
 .login-body {
   font-family: 'Poppins', sans-serif;
-  margin: 16rem auto;
+  margin: 10rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: cover; 
 }
 
 .login-container {

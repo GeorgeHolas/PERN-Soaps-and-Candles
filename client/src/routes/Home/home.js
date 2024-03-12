@@ -8,6 +8,7 @@
  */
 // Home.js
 import React, { useEffect } from "react";
+import video from "../../resources/arrangement-of-natural-soaps-and-candles.webm";
 import styles from "./home.module.css";
 
 // Footer component
@@ -57,10 +58,7 @@ function Home() {
     <div className={styles.home}>
       <div className={styles.introContainer}>
         <video className={styles.introVideo} autoPlay loop muted>
-          <source
-            src="https://assets.mixkit.co/videos/preview/mixkit-arrangement-of-natural-soaps-and-candles-2805-large.mp4"
-            type="video/mp4"
-          />
+          <source src={video} type="video/webm" />
           Your browser does not support the video tag.
         </video>
       </div>
