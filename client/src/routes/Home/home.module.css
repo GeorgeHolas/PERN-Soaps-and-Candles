@@ -14,7 +14,8 @@
 .introContainer {
   height: 59rem;
   margin-bottom: 3.125rem;
-  box-shadow: 1px 2px 10px rgba(107, 105, 105, 0.719);
+   box-shadow: 0px 4px 6px rgba(107, 105, 105, 0.719),
+              0px 2px 4px rgba(107, 105, 105, 0.719) inset;
 }
 
 .introVideo {
