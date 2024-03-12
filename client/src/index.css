@@ -13,7 +13,7 @@ body,
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('../../client/src/resources/Register.jpg');
+  background: url('../../client/src/resources/Register.jpg') no-repeat;
   background-size: cover;
   background-position: center;
 }
