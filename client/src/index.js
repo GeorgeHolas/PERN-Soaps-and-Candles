@@ -7,7 +7,7 @@
 import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { AuthProvider } from "./routes/AuthContext";
-import { StripeProvider } from "./routes/StripeContext"; // Update import
+import { StripeProvider } from "./routes/StripeContext"; 
 import "./index.css";
 
 const App = React.lazy(() => import("./components/App"));
