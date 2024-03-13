@@ -56,7 +56,7 @@ const ProductList = ({ title, type }) => {
         }
       })
       .catch((error) => {
-        setError("Failed to fetch products");
+        setError("Failed to fetch products, error: " + error);
       });
   }, [type]);
 

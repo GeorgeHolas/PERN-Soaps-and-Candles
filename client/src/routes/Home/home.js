@@ -57,10 +57,12 @@ function Home() {
   return (
     <div className={styles.home}>
       <div className={styles.introContainer}>
-        <video className={styles.introVideo} autoPlay loop muted>
+        <video className={styles.introVideo} autoPlay loop>
           <source src={video} type="video/webm" />
           Your browser does not support the video tag.
         </video>
+        <h1 className={styles.videoTitle}>The Hand Made Candles & Soaps
+        <p>Let's explore the natural beauty of soaps and candles.</p></h1>
       </div>
       <div className={styles.container}>
         <div className={styles.historyContainer}>

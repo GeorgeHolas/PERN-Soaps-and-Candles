@@ -4,6 +4,7 @@
   background: url('../../resources/Register.jpg') no-repeat;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }
 
 .container {
@@ -12,17 +13,33 @@
 }
 
 .introContainer {
-  height: 59rem;
-  margin-bottom: 3.125rem;
-   box-shadow: 0px 4px 6px rgba(107, 105, 105, 0.719),
-              0px 2px 4px rgba(107, 105, 105, 0.719) inset;
+  height: 57.5rem;
+  margin-bottom: 1.125rem;
+  position: relative;
+}
+
+.videoTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 2px 3px black; 
+  font-size: 3.5rem;
+}
+
+.videoTitle p {
+  font-size: 1.3rem;
+  color: white;
+  text-align: center;
 }
 
 .introVideo {
-  width: 100%;
+  width: 99.99%;
   height: 90%;
   object-fit: cover;
   border-bottom: 1px solid black;
+  display: absolute;
 }
 
 .homeContainer h1 {
