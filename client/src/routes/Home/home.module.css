@@ -13,8 +13,8 @@
 }
 
 .introContainer {
-  height: 57.5rem;
-  margin-bottom: 1.125rem;
+  height: 52.5rem;
+  margin-bottom: 5.125rem;
   position: relative;
 }
 
@@ -35,11 +35,10 @@
 }
 
 .introVideo {
-  width: 99.99%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-bottom: 1px solid black;
-  display: absolute;
 }
 
 .homeContainer h1 {
@@ -172,6 +171,14 @@
   .imageContainer,
   .introVideo {
     width: 70%;
+  }
+
+  .videoTitle p {
+    font-size: 0.5rem;
+  }
+
+  .videoTitle {
+    font-size: 1rem;
   }
 
   .introVideo {
