@@ -1,7 +1,7 @@
 /* home.module.css */
 
 .home {
-  background: url('../../resources/Background.jpg') no-repeat;
+  background: url('../../resources/Background.webp') no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -125,7 +125,7 @@
 }
 
 .imageOne {
-  background: url('../../resources/SoapsCandles.jpg') no-repeat;
+  background: url('../../resources/SoapsCandles.webp') no-repeat;
   border-radius: 10px;
   margin-bottom: 20px;
   width: 80%;
@@ -133,7 +133,7 @@
 }
 
 .imageTwo {
-  background: url('../../resources/SoapsCandles\ two.jpg') no-repeat;
+  background: url('../../resources/SoapsCandles\ two.webp') no-repeat;
   border-radius: 10px;
   margin-top: 60px;
   width: 80%;
