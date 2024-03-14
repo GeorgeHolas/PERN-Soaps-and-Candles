@@ -13,6 +13,7 @@ import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./login.module.css";
 
+// Login function
 function Login() {
   const { login } = useAuth();
   const {
@@ -22,7 +23,7 @@ function Login() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-
+  
   // Handle form submit
   const onSubmit = async (data) => {
 
@@ -35,12 +36,14 @@ function Login() {
         },
         body: JSON.stringify(data),
       });
+      
       // Handle response
       if (response.ok) {
         const responseData = await response.json();
-        
+
         if (responseData.Customer_id) {
-          // Login succeeded
+
+          // Login successful
           login(responseData);
           navigate("/products");
         } else {

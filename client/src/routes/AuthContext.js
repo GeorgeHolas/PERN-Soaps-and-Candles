@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   // Get user
   const getUser = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const userId = localStorage.getItem("userId"); // This should be "customerId" instead of "userId"
+    const userId = localStorage.getItem("userId"); 
     console.log(localStorage.getItem("user"));
     console.log(localStorage.getItem("userId"));
     if (userId) {
