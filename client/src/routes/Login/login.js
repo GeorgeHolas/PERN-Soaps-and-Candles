@@ -23,7 +23,10 @@ function Login() {
   } = useForm();
   const navigate = useNavigate();
 
+  // Handle form submit
   const onSubmit = async (data) => {
+
+    // Call login API
     try {
       const response = await fetch("http://localhost:4000/auth/login", {
         method: "POST",
@@ -32,11 +35,12 @@ function Login() {
         },
         body: JSON.stringify(data),
       });
-
+      // Handle response
       if (response.ok) {
         const responseData = await response.json();
         
         if (responseData.Customer_id) {
+          // Login succeeded
           login(responseData);
           navigate("/products");
         } else {
