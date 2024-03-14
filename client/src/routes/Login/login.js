@@ -35,8 +35,7 @@ function Login() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Login API Response Data:", responseData);
-
+        
         if (responseData.Customer_id) {
           login(responseData);
           navigate("/products");
