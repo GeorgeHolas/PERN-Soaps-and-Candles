@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [customerId, setCustomerId] = useState(null);
   const [logoutMessage, setLogoutMessage] = useState(null);
-  const [loginMessage, setLoginMessage] = useState(null);
   const [stripeKey, setStripeKey] = useState(null);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     // Store user object in localStorage
     localStorage.setItem("customerId", user.Customer_id);
 
-    setLoginMessage("Login successful. Welcome!");
+    setLogoutMessage("Login successful. Welcome!");
   };
 
   // Get user
@@ -69,12 +68,11 @@ export const AuthProvider = ({ children }) => {
         getCustomerId,
         getUser,
         login,
-        loginMessage,
         logout,
         logoutMessage,
         clearLogoutMessage,
         isAuthenticated: !!user,
-        stripeKey, // Add stripeKey to the context
+        stripeKey, 
       }}
     >
       {stripeKey && (
