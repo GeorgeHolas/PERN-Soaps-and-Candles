@@ -11,9 +11,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import LoginMessage from "../../components/LoginMessage/loginMessage";
 import styles from "./login.module.css";
 
-// Login function
 function Login() {
   const { login } = useAuth();
   const {
@@ -22,12 +22,10 @@ function Login() {
     setError,
     formState: { errors },
   } = useForm();
+  const [loginSuccess, setLoginSuccess] = React.useState(false);
   const navigate = useNavigate();
-  
-  // Handle form submit
-  const onSubmit = async (data) => {
 
-    // Call login API
+  const onSubmit = async (data) => {
     try {
       const response = await fetch("http://localhost:4000/auth/login", {
         method: "POST",
@@ -36,16 +34,16 @@ function Login() {
         },
         body: JSON.stringify(data),
       });
-      
-      // Handle response
+
       if (response.ok) {
         const responseData = await response.json();
 
         if (responseData.Customer_id) {
-
-          // Login successful
           login(responseData);
-          navigate("/products");
+          setLoginSuccess(true);
+          setTimeout(() => {
+            navigate("/products");
+          }, 2000);
         } else {
           console.error("Login API Error: Customer_id missing in response.");
           setError("username", {
@@ -97,6 +95,8 @@ function Login() {
             />
             {errors.password && <span>{errors.password.message}</span>}
           </label>
+
+          {loginSuccess && <LoginMessage message="Login successful. Welcome!" />}
 
           <button type="submit" className={styles.button}>
             Login
