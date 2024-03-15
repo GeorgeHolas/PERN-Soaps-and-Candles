@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [customerId, setCustomerId] = useState(null);
   const [logoutMessage, setLogoutMessage] = useState(null);
   const [stripeKey, setStripeKey] = useState(null);
-
+  
   useEffect(() => {
     const publishableKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
     setStripeKey(publishableKey);
