@@ -1,9 +1,3 @@
-/**
- * AuthContext provides authentication state and functions via React Context API.
- * Maintains user object, customer ID, and login/logout functions in context.
- * Also provides access to Stripe publishable key for StripeProvider.
- */
-// AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { StripeProvider } from "./StripeContext";
 
@@ -21,27 +15,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (user) => {
-    // Update to expect user object
     setUser(user);
-
-    // Get Customer_id from user object
     setCustomerId(user.Customer_id);
-
     localStorage.setItem("user", JSON.stringify(user));
-
-    // Store user object in localStorage
     localStorage.setItem("customerId", user.Customer_id);
-
     setLogoutMessage("Login successful. Welcome!");
   };
 
-  // Get user
   const getUser = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const userId = localStorage.getItem("userId"); 
-    console.log(localStorage.getItem("user"));
-    console.log(localStorage.getItem("userId"));
-    if (userId) {
+    const customerId = localStorage.getItem("customerId"); 
+    if (customerId) {
       return user;
     }
     return null;
@@ -49,13 +33,11 @@ export const AuthProvider = ({ children }) => {
 
   const getCustomerId = () => localStorage.getItem("customerId");
 
-  // Logout
   const logout = () => {
     setUser(null);
     setLogoutMessage("Logout successful. Goodbye!");
   };
 
-  // Logout message
   const clearLogoutMessage = () => {
     setLogoutMessage(null);
   };
