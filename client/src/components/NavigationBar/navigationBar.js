@@ -1,17 +1,27 @@
 /**
  * NavigationBar component renders a navigation bar with links
- * and logout button. Shows logout message on logout.
+ * and user account controls.
+ *
+ * Shows login/register links when unauthenticated.
+ * When authenticated, shows user greeting, cart link, and logout button.
+ * Displays temporary logout message on logout.
  */
-// NavigationBar.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./navigationBar.module.css";
 import LogoutMessage from "../LogoutMessage/logoutMessage";
 import { useAuth } from "../../routes/AuthContext";
 
+// Navigation bar component
 function NavigationBar({ cartItems }) {
-  const { user, logout, logoutMessage, clearLogoutMessage, isAuthenticated } =
-    useAuth();
+  const {
+    user,
+    username,
+    logout,
+    logoutMessage,
+    clearLogoutMessage,
+    isAuthenticated,
+  } = useAuth();
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
   // Show the logout message after a certain duration
@@ -65,6 +75,11 @@ function NavigationBar({ cartItems }) {
               <li>
                 <Link to="/cart">Cart ({cartItems.length})</Link>
               </li>
+              {username && (
+                <li>
+                  <span>Welcome, {username}!</span>
+                </li>
+              )}
               <button className={styles.buttonLogout} onClick={handleLogout}>
                 Logout
               </button>
