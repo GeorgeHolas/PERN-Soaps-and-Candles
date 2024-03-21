@@ -9,6 +9,11 @@
   z-index: 10;
 }
 
+.username {
+  color: #0f0707;
+  font-weight: 500;
+}
+
 .navList {
   justify-content: left;
 }

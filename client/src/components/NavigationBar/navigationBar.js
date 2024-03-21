@@ -1,18 +1,10 @@
-/**
- * NavigationBar component renders a navigation bar with links
- * and user account controls.
- *
- * Shows login/register links when unauthenticated.
- * When authenticated, shows user greeting, cart link, and logout button.
- * Displays temporary logout message on logout.
- */
+// NavigationBar.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./navigationBar.module.css";
 import LogoutMessage from "../LogoutMessage/logoutMessage";
 import { useAuth } from "../../routes/AuthContext";
 
-// Navigation bar component
 function NavigationBar({ cartItems }) {
   const {
     user,
@@ -24,12 +16,10 @@ function NavigationBar({ cartItems }) {
   } = useAuth();
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
-  // Show the logout message after a certain duration
   useEffect(() => {
     if (logoutMessage) {
       setShowLogoutMessage(true);
 
-      // Clear the logout message after a certain duration
       const timeoutId = setTimeout(() => {
         setShowLogoutMessage(false);
         clearLogoutMessage();
@@ -39,7 +29,6 @@ function NavigationBar({ cartItems }) {
     }
   }, [logoutMessage, clearLogoutMessage]);
 
-  // Logout
   const handleLogout = () => {
     logout();
   };
@@ -53,7 +42,6 @@ function NavigationBar({ cartItems }) {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {/* Render login and sign up links only when not authenticated */}
           {!isAuthenticated && (
             <>
               <li>
@@ -70,7 +58,7 @@ function NavigationBar({ cartItems }) {
           <li>
             <Link to="/orders">Orders</Link>
           </li>
-          {user && (
+          {user && isAuthenticated && (
             <>
               <li>
                 <Link to="/cart">Cart ({cartItems.length})</Link>

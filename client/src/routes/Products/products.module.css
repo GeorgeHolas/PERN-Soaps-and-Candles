@@ -28,8 +28,9 @@
 
 .product:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 15px rgb(39, 34, 34);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid  #cf6121 ;
+  box-shadow: 0 0 8px rgb(175, 101, 4);
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
 }
 
 .product img {
