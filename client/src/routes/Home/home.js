@@ -23,7 +23,6 @@ const Footer = () => {
 // Home component
 function Home() {
   useEffect(() => {
-    const fadeInImages = () => {
       const images = document.querySelectorAll(
         `.${styles.imageOne}, .${styles.imageTwo}, .${styles.text}`
       );
@@ -32,26 +31,7 @@ function Home() {
           image.style.opacity = "1";
         }, index * 1500);
       });
-    };
-    // Fade in the images after a certain duration
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      if (scrollY > windowHeight * 0.5) {
-        fadeInImages();
-        // Remove the event listener after it's triggered to avoid unnecessary calls
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
-
-    // Attach the scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    
   }, []);
 
   return (

@@ -64,9 +64,10 @@ function NavigationBar({ cartItems }) {
                 <Link to="/cart">Cart ({cartItems.length})</Link>
               </li>
               {username && (
-                <li>
-                  <span>Welcome, {username}!</span>
-                </li>
+                <>
+                <span className={styles.welcome}>Welcome,</span>
+                <span className={styles.username}> {username}</span>
+                </>  
               )}
               <button className={styles.buttonLogout} onClick={handleLogout}>
                 Logout
