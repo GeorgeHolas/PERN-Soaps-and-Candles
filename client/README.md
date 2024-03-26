@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+This project consists of a React frontend client and Node/Express backend API server. The frontend allows users to view products, add them to a cart, and checkout. The backend handles API routes for products, customers, orders, etc.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Backend API Server
+The Node/Express server is located in the server directory.
 
-## Available Scripts
+It handles API routes for:
 
-In the project directory, you can run:
+Customers
+Products
+Cart
+Orders
+Auth and user registration
+Payments
+It uses middleware for:
 
-### `npm start`
+CORS
+Body parsing
+Sessions
+Passport for authentication
+Swagger docs
+The main entry point is server.js which configures the Express app and middleware.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+API routes are defined in modules under routes/.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Swagger API docs are served at /api-docs to document the endpoints.
 
-### `npm test`
+Frontend React App
+The React frontend app is located in the client directory.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It was bootstrapped with Create React App and contains components for:
 
-### `npm run build`
+Viewing products
+Adding to cart
+Checking out
+Authentication
+The main scripts are:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+npm start - starts dev server
+npm run build - builds production bundle
+npm test - runs tests
+React documentation can be found at https://reactjs.org/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app is configured to make API calls to the backend Express server.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Deployment
+The frontend and backend can be deployed separately. The React app can be served static files from the build folder. The Express API server can be deployed to a server or hosting like Heroku.
 
-### `npm run eject`
+Let me know if you need any other specifics documented! I can expand on any section or add additional info as needed.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -65,6 +65,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setUsername("");
+    localStorage.removeItem('user');
+    sessionStorage.clear();
     setLogoutMessage("Logout successful. Goodbye!");
   };
 

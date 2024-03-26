@@ -7,7 +7,7 @@
  * Has useEffect hook to fade in images on scroll using CSS opacity.
  */
 // Home.js
-import React, { useEffect } from "react";
+import React from "react";
 import video from "../../resources/arrangement-of-natural-soaps-and-candles.webm";
 import styles from "./home.module.css";
 
@@ -22,17 +22,6 @@ const Footer = () => {
 
 // Home component
 function Home() {
-  useEffect(() => {
-      const images = document.querySelectorAll(
-        `.${styles.imageOne}, .${styles.imageTwo}, .${styles.text}`
-      );
-      images.forEach((image, index) => {
-        setTimeout(() => {
-          image.style.opacity = "1";
-        }, index * 1500);
-      });
-    
-  }, []);
 
   return (
     <div className={styles.home}>

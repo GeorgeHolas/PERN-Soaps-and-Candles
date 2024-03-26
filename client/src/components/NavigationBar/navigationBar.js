@@ -56,7 +56,7 @@ function NavigationBar({ cartItems }) {
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <Link to="/orders">Orders</Link>
+            <Link to="/orders">My orders</Link>
           </li>
           {user && isAuthenticated && (
             <>
