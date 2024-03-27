@@ -66,8 +66,10 @@ To run the frontend app locally, use the following commands:
 cd client
 npm install
 npm start
-
+```
 To run the backend locally, use the following commands:
+```bash
 cd server 
 npm install
 node server
+```
