@@ -64,8 +64,11 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const logout = () => {
     setUser(null);
+    setCustomerId(null);
     setUsername("");
     localStorage.removeItem('user');
+    localStorage.removeItem('customerId');
+    localStorage.removeItem('username');
     sessionStorage.clear();
     setLogoutMessage("Logout successful. Goodbye!");
   };
