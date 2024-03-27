@@ -61,8 +61,13 @@ router.post("/login", async (req, res, next) => {
 router.get("/logout", (req, res) => {
   // Destroy session
   req.logout();
-  req.session.destroy();
-  res.send("Logged out");
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).json({ error: "Failed to log out" });
+    }
+    res.send("Logged out");
+  });
 });
 
 // Middleware to check if the user is authenticated
