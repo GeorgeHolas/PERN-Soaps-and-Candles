@@ -1,3 +1,8 @@
+/**
+ * AuthContext provides authentication state and functions via React Context API.
+ * Includes user object, customer ID, username, login/logout functions,
+ * and Stripe integration.
+ */
 // AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { StripeProvider } from "./StripeContext";
@@ -7,7 +12,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [customerId, setCustomerId] = useState(null);
-  const [username, setUsername] = useState(""); 
+  const [username, setUsername] = useState("");
   const [logoutMessage, setLogoutMessage] = useState(null);
   const [stripeKey, setStripeKey] = useState(null);
 
@@ -22,11 +27,16 @@ export const AuthProvider = ({ children }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedCustomerId = localStorage.getItem("customerId");
     const storedUsername = localStorage.getItem("username");
-  
-    const localUser = storedUser && storedCustomerId && storedUsername
-      ? { user: storedUser, customerId: storedCustomerId, username: storedUsername }
-      : { user: null, customerId: null, username: "" };
-  
+
+    const localUser =
+      storedUser && storedCustomerId && storedUsername
+        ? {
+            user: storedUser,
+            customerId: storedCustomerId,
+            username: storedUsername,
+          }
+        : { user: null, customerId: null, username: "" };
+
     setUser(localUser.user);
     setCustomerId(localUser.customerId);
     setUsername(localUser.username);
@@ -43,9 +53,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("customerId", Customer_id);
     localStorage.setItem("username", username || "");
     setLogoutMessage("Login successful. Welcome!");
-
-    console.log("User logged in:", userData);
-    console.log("Username set to:", username || "");
   };
 
   // Get user from local storage
@@ -62,15 +69,15 @@ export const AuthProvider = ({ children }) => {
   // Get customer id and username from local storage
   const getCustomerId = () => localStorage.getItem("customerId");
   const getUsername = () => localStorage.getItem("username");
-  
+
   // Logout function
   const logout = () => {
     setUser(null);
     setCustomerId(null);
     setUsername("");
-    localStorage.removeItem('user');
-    localStorage.removeItem('customerId');
-    localStorage.removeItem('username');
+    localStorage.removeItem("user");
+    localStorage.removeItem("customerId");
+    localStorage.removeItem("username");
     sessionStorage.clear();
     setLogoutMessage("Logout successful. Goodbye!");
   };
@@ -85,7 +92,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         customerId,
-        username, 
+        username,
         getCustomerId,
         getUsername,
         getUser,

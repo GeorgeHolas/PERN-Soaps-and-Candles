@@ -1,3 +1,13 @@
+/**
+ * NavigationBar component renders a responsive navigation bar
+ * with branding, navigation links, and authenticated user controls.
+ *
+ * Uses React hooks for state management and AuthContext for auth state.
+ * Conditionally shows login/register links when unauthenticated,
+ * and logout button + cart link when authenticated.
+ *
+ * Displays temporary logout messages on logout.
+ */
 // NavigationBar.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -65,9 +75,9 @@ function NavigationBar({ cartItems }) {
               </li>
               {username && (
                 <>
-                <span className={styles.welcome}>Welcome,</span>
-                <span className={styles.username}> {username}</span>
-                </>  
+                  <span className={styles.welcome}>Welcome,</span>
+                  <span className={styles.username}> {username}</span>
+                </>
               )}
               <button className={styles.buttonLogout} onClick={handleLogout}>
                 Logout
