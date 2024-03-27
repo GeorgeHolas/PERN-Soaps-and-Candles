@@ -22,12 +22,14 @@ export const AuthProvider = ({ children }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedCustomerId = localStorage.getItem("customerId");
     const storedUsername = localStorage.getItem("username");
-
-    if (storedUser && storedCustomerId && storedUsername) {
-      setUser(storedUser);
-      setCustomerId(storedCustomerId);
-      setUsername(storedUsername);
-    }
+  
+    const localUser = storedUser && storedCustomerId && storedUsername
+      ? { user: storedUser, customerId: storedCustomerId, username: storedUsername }
+      : { user: null, customerId: null, username: "" };
+  
+    setUser(localUser.user);
+    setCustomerId(localUser.customerId);
+    setUsername(localUser.username);
   }, []);
 
   // Login function
