@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "../routes/Login/login";
 import Registration from "../routes/Register/register";
 import Home from "../routes/Home/home";
-import NavigationBar from "./NavigationBar/NavigationBar";
+import NavigationBar from "./NavigationBar/navigationBar";
 import Products from "../routes/Products/products";
 import ProductDetails from "../routes/ProductDetails/ProductDetails";
 import Cart from "../routes/Cart/cart";
