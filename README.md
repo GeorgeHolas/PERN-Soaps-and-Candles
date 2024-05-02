@@ -71,5 +71,5 @@ To run the backend locally, use the following commands:
 ```bash
 cd server 
 npm install
-node server
+node server.js
 ```
