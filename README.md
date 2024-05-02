@@ -1,6 +1,6 @@
 ### **The Ecommerce of Soaps and Candles**
 
-The Ecommerce of Soaps and Candles is a project that uses React for the frontend and Node/Express for the backend API server. The frontend allows users to view products, add them to a cart, and checkout. The backend handles API routes for products, customers, orders, and more.
+The E-commerce of Soaps and Candles is a project, that uses React for the front-end and Node/Express for the backend API server. The front-end allows users to view products, add them to a cart, and checkout. The backend handles API routes for products, customers, orders and more.
 
 ### **Backend API Server**
 The Node/Express server is located in the `server` directory.
@@ -47,13 +47,13 @@ The React frontend app is located in the `client` directory.
 ### **API Endpoints**
 The main endpoints provided include:
 
-- **GET** `/api/products` - Get list of products
+- **GET** `/api/products` - Get a list of products
 - **GET** `/api/products/:id` - Get a single product
 - **POST** `/api/products` - Create a new product (admin only)
-- **GET** `/api/customers` - Get list of customers
+- **GET** `/api/customers` - Get a list of customers
 - **GET** `/api/customers/:id` - Get a single customer
 - **POST** `/api/customers` - Create a new customer
-- **GET** `/api/orders` - Get list of orders (admin only)
+- **GET** `/api/orders` - Get a list of orders (admin only)
 - **GET** `/api/orders/:id` - Get a single order (admin only)
 - **POST** `/api/orders` - Create a new order
 - **POST** `/api/auth/login` - Authenticate and login a user
