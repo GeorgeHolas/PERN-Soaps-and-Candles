@@ -5,7 +5,7 @@
  */
 // index.js
 import React, { Suspense } from "react";
-import { createRoot } from "react-dom";
+import ReactDOM from "react-dom";
 import { AuthProvider } from "./routes/AuthContext";
 import { StripeProvider } from "./routes/StripeContext"; 
 import "./index.css";
@@ -13,11 +13,10 @@ import "./index.css";
 const App = React.lazy(() => import("./components/App"));
 
 const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
 
 const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <StripeProvider stripeKey={stripeKey}>
@@ -27,5 +26,6 @@ root.render(
         </Suspense>
       </StripeProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  rootElement
 );
