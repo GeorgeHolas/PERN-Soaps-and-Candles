@@ -5,7 +5,7 @@
  */
 // index.js
 import React, { Suspense } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot } from "react-dom";
 import { AuthProvider } from "./routes/AuthContext";
 import { StripeProvider } from "./routes/StripeContext"; 
 import "./index.css";
@@ -21,7 +21,6 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <StripeProvider stripeKey={stripeKey}>
-        {process.env.REACT_APP_STRIPE_KEY}
         {/* Pass stripeKey */}
         <Suspense fallback={<div>Loading...</div>}>
           <App />
