@@ -19,7 +19,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:4000/auth/login", {
+      const response = await fetch(`${backendUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
