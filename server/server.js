@@ -40,7 +40,7 @@ const port = process.env.PORT || 4000;
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://soaps-and-candles.onrender.com"],
     credentials: true,
   })
 );
@@ -87,7 +87,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://soaps-and-candles.onrender.com"],
     credentials: true, // Enable credentials (cookies, authorization headers, etc.)
   })
 );
