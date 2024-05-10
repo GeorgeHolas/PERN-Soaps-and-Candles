@@ -19,7 +19,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`${backendUrl}/auth/login`, {
+      const response = await fetch("https://soaps-and-candles.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
